@@ -9,15 +9,19 @@ let events = require('./data/events.json');
 app.use(express.json()); 
 app.use(express.static('client')); 
 
-
-app.get('/api/event/rand', (req, resp) => {
-    let index = Math.floor(Math.random() * events.length);
-    resp.send(events[index]);
-});
+//sort the events
+function sortEventsByDate(events) {
+    return events.sort((a, b) => {
+        const dateA = new Date(a.time);  
+        const dateB = new Date(b.time); 
+        return dateA - dateB;  
+    });
+}
 
 // get events
 app.get('/api/events', (req, resp) => {
-    resp.json(events); 
+    const sortedEvents = sortEventsByDate(events);  
+    resp.json(sortedEvents); 
 });
 
 // add new event
