@@ -7,22 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
       toc.style.display = toc.style.display === "none" ? "block" : "none";
     });
   
-    // navigate to other sections
-    const navLinks = document.querySelectorAll(".nav-link");
-  
-    navLinks.forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        const targetId = e.target.getAttribute("data-target");
-  
-        // hide sections
-        document.querySelectorAll(".section").forEach(section => {
-          section.style.display = "none";
-        });
-  
-        // show section
-        const targetSection = document.getElementById(targetId);
-        targetSection.style.display = "block";
-      });
-    });
+    // show/hide items
+    document.body.addEventListener("click", (e) => {
+      const target = e.target;
+
+      
+      if (target.hasAttribute("data-target")) {
+          e.preventDefault();
+          const targetId = target.getAttribute("data-target");
+
+          // hide
+          document.querySelectorAll(".section").forEach(section => {
+              section.style.display = "none";  
+          });
+
+          // show
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+              targetSection.style.display = "block";  
+          }
+      }
   });
+});
