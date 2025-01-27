@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(musicians => {
                 musiciansContainer.innerHTML = ''; 
-                let userProfileFound = false;
 
                 musicians.forEach(musician => {
                     if (musician.isUserProfile) {
@@ -26,17 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
 
-                if (userProfile) {
-                    const myProfileDiv = document.createElement('div');
-                    myProfileDiv.id = 'myProfile';
-    
-                    
-                    myProfileDiv.classList.add('row', 'justify-content-center'); 
-                    
-                    myProfileDiv.appendChild(createProfileElement(userProfile));
-                    createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
-                    createProfileButton.textContent = 'Edit Profile';
-                }
+                //get user profile
+                fetch('/api/user')
+                    .then(response => response.json())
+                    .then(profile => {
+                        if (profile && Object.keys(profile).length > 0) { 
+                            userProfile = profile;
+                            const myProfileDiv = document.createElement('div');
+                            myProfileDiv.id = 'myProfile';
+                            myProfileDiv.classList.add('row', 'justify-content-center');
+                            myProfileDiv.appendChild(createProfileElement(userProfile));
+                            createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
+                            createProfileButton.textContent = 'Edit Profile';
+                        } else {
+                            
+                            createProfileButton.textContent = 'Create Profile';
+                        }
+                    });
             })
             .catch(error => console.error('Error loading musicians:', error));
     }
@@ -83,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="musicianImage">Image URL</label>
                     <input type="text" id="musicianImage" class="form-control" value="${profile?.image || ''}" required>
                 </div>
-                <button type="submit" class="btn btn-primary">${profile ? 'Save Changes' : 'Create Profile'}</button>
+                <button type="submit" class="btn btn-primary">${profile ? 'Save Changes' : 'Save Changes'}</button>
             </form>
         `;
         musiciansForm.style.display = 'block';
@@ -100,13 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 about: document.getElementById('musicianAbout').value,
                 location: document.getElementById('musicianLocation').value,
                 image: document.getElementById('musicianImage').value,
-                isUserProfile: true 
             };
 
-            userProfile = updatedProfile; 
 
 
-            fetch('/api/musician/add', {
+            fetch('/api/user/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -119,11 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const userProfileSection = document.querySelector('#myProfile');
                 if (userProfileSection) {
                     userProfileSection.innerHTML = '';
-                    userProfileSection.appendChild(createProfileElement(userProfile));
+                    userProfileSection.appendChild(createProfileElement(updatedProfile));
                 } else {
                     const myProfileDiv = document.createElement('div');
                     myProfileDiv.id = 'myProfile';
-                    myProfileDiv.appendChild(createProfileElement(userProfile));
+                    myProfileDiv.classList.add('row', 'justify-content-center', 'mt-4'); 
+                    myProfileDiv.appendChild(createProfileElement(updatedProfile));
                     createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
                 }
 

@@ -39,6 +39,7 @@ app.post('/api/event/add', (req, resp) => {
 
 //load musicians
 let musicians = require('./data/musicians.json');
+let userProfile = require('./data/user.json');
 
 //get musicians
 app.get('/api/musicians', (req, res) => {
@@ -47,27 +48,28 @@ app.get('/api/musicians', (req, res) => {
 
 //add new profile
 app.post('/api/musician/add', (req, resp) => {
-    const { name, instruments, about, location, image, isUserProfile } = req.body;
-
-    
-    events = events.filter(event => event.isUserProfile !== true); 
-    
-    const newProfile = {
-        name, 
-        instruments, 
-        about, 
-        location, 
-        image, 
-        isUserProfile: true
-    };
-
+    const { name, instruments, about, location, image } = req.body;
+    const newProfile = { name, instruments, about, location, image };
     musicians.push(newProfile);
-
-    const musiciansText = JSON.stringify(musicians, null, 2); 
+    const musiciansText = JSON.stringify(musicians, null, 2);
     fs.writeFileSync('./data/musicians.json', musiciansText);
-
-    resp.sendStatus(200); 
+    resp.sendStatus(200);
 });
+
+// get user profile
+app.get('/api/user', (req, res) => {
+    res.json(userProfile);
+});
+
+//change user profile
+app.post('/api/user/add', (req, resp) => {
+    const { name, instruments, about, location, image } = req.body;
+    userProfile = { name, instruments, about, location, image };
+    const userProfileText = JSON.stringify(userProfile, null, 2);
+    fs.writeFileSync('./data/user.json', userProfileText);
+    resp.sendStatus(200);
+});
+
 
 
 module.exports = app;
