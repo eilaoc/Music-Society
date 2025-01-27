@@ -37,4 +37,24 @@ app.post('/api/event/add', (req, resp) => {
     resp.sendStatus(200); 
 });
 
+//load musicians
+let musicians = require('./data/musicians.json');
+
+//get musicians
+app.get('/api/musicians', (req, res) => {
+    res.json(musicians);
+});
+
+//add new profile
+app.post('/api/musician/add', (req, res) => {
+    const { name, instruments, about, location, image } = req.body;
+    const newProfile = { name, instruments, about, location, image };
+
+    musicians.push(newProfile);
+
+    fs.writeFileSync('./data/musicians.json', JSON.stringify(musicians, null, 2));
+    res.sendStatus(200);
+});
+
+
 module.exports = app;
