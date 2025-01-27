@@ -46,14 +46,27 @@ app.get('/api/musicians', (req, res) => {
 });
 
 //add new profile
-app.post('/api/musician/add', (req, res) => {
-    const { name, instruments, about, location, image } = req.body;
-    const newProfile = { name, instruments, about, location, image };
+app.post('/api/musician/add', (req, resp) => {
+    const { name, instruments, about, location, image, isUserProfile } = req.body;
+
+    
+    events = events.filter(event => event.isUserProfile !== true); 
+    
+    const newProfile = {
+        name, 
+        instruments, 
+        about, 
+        location, 
+        image, 
+        isUserProfile: true
+    };
 
     musicians.push(newProfile);
 
-    fs.writeFileSync('./data/musicians.json', JSON.stringify(musicians, null, 2));
-    res.sendStatus(200);
+    const musiciansText = JSON.stringify(musicians, null, 2); 
+    fs.writeFileSync('./data/musicians.json', musiciansText);
+
+    resp.sendStatus(200); 
 });
 
 

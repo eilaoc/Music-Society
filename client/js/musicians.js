@@ -15,18 +15,31 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(musicians => {
                 musiciansContainer.innerHTML = ''; 
-                if (musicians.length === 0) {
-                    musiciansContainer.innerHTML = '<p>No musician profiles available.</p>';
-                } else {
-                    musicians.forEach(musician => {
+                let userProfileFound = false;
+
+                musicians.forEach(musician => {
+                    if (musician.isUserProfile) {
+                        userProfile = musician; 
+                    } else {
                         const profileElement = createProfileElement(musician);
                         musiciansContainer.appendChild(profileElement);
-                    });
+                    }
+                });
+
+                if (userProfile) {
+                    const myProfileDiv = document.createElement('div');
+                    myProfileDiv.id = 'myProfile';
+    
+                    
+                    myProfileDiv.classList.add('row', 'justify-content-center'); 
+                    
+                    myProfileDiv.appendChild(createProfileElement(userProfile));
+                    createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
+                    createProfileButton.textContent = 'Edit Profile';
                 }
             })
             .catch(error => console.error('Error loading musicians:', error));
     }
-
     // create profile
     function createProfileElement(profile) {
         const profileCard = document.createElement('div');
@@ -87,26 +100,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 about: document.getElementById('musicianAbout').value,
                 location: document.getElementById('musicianLocation').value,
                 image: document.getElementById('musicianImage').value,
+                isUserProfile: true 
             };
 
             userProfile = updatedProfile; 
 
 
-            createProfileButton.textContent = 'Edit Profile';
+            fetch('/api/musician/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedProfile)
+            })
+            .then(() => {
+                createProfileButton.textContent = 'Edit Profile';
 
-            const userProfileSection = document.querySelector('#myProfile');
-            if (userProfileSection) {
-                userProfileSection.innerHTML = '';
-                userProfileSection.appendChild(createProfileElement(userProfile));
-            } else {
-                const myProfileDiv = document.createElement('div');
-                myProfileDiv.id = 'myProfile';
-                myProfileDiv.classList.add('d-flex', 'justify-content-center', 'mt-4'); 
-                myProfileDiv.appendChild(createProfileElement(userProfile));
-                createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
+                const userProfileSection = document.querySelector('#myProfile');
+                if (userProfileSection) {
+                    userProfileSection.innerHTML = '';
+                    userProfileSection.appendChild(createProfileElement(userProfile));
+                } else {
+                    const myProfileDiv = document.createElement('div');
+                    myProfileDiv.id = 'myProfile';
+                    myProfileDiv.appendChild(createProfileElement(userProfile));
+                    createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
+                }
 
-            }
-            musiciansForm.style.display = 'none';
+                musiciansForm.style.display = 'none';
+            })
+            .catch(error => console.error('Error saving profile:', error));
         });
     }
 

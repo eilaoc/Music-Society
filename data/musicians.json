@@ -1,16 +1,58 @@
 [
-    {
-        "name": "John Doe",
-        "instruments": "Guitar, Vocals",
-        "about": "Loves rock and blues music.",
-        "location": "Durham",
-        "image": "assets/images/profile1.jpg"
-    },
-    {
-        "name": "Jane Smith",
-        "instruments": "Drums",
-        "about": "Enjoys playing in jazz bands.",
-        "location": "Newcastle",
-        "image": "assets/images/profile2.jpg"
-    }
+  {
+    "name": "Robby Wilson",
+    "instruments": "Guitar, Vocals",
+    "about": "Rock and blues are my go-to!",
+    "location": "Durham",
+    "image": "assets/images/profile1.jpg",
+    "isUserProfile": false
+  },
+  {
+    "name": "Izzy Barton",
+    "instruments": "Drums",
+    "about": "Love a bit of jazz",
+    "location": "Newcastle",
+    "image": "assets/images/profile2.jpg",
+    "isUserProfile": false
+  },
+  {
+    "name": "Ashley Lyons",
+    "instruments": "Violin, Cello",
+    "about": "Looking for members for a quartet!",
+    "location": "Manchester",
+    "image": "assets/images/profile3.jpg",
+    "isUserProfile": false
+  },
+  {
+    "name": "Dylan Rodney",
+    "instruments": "Bass Guitar",
+    "about": "Local at the Open Mic Night!",
+    "location": "Durham",
+    "image": "assets/images/profile4.jpg",
+    "isUserProfile": false
+  },
+  {
+    "name": "Eila",
+    "instruments": "Piano",
+    "about": "rgh",
+    "location": "Durham",
+    "image": "\"\"",
+    "isUserProfile": true
+  },
+  {
+    "name": "Eila O'Connor",
+    "instruments": "Piano",
+    "about": "rgh",
+    "location": "Durham",
+    "image": "\"\"",
+    "isUserProfile": true
+  },
+  {
+    "name": "Eila",
+    "instruments": "Piano",
+    "about": "rgh",
+    "location": "Durham",
+    "image": "\"\"",
+    "isUserProfile": true
+  }
 ]
