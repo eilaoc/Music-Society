@@ -1,0 +1,26 @@
+{
+  "name": "music-society",
+  "version": "1.0.0",
+  "description": "Prog Black Assignment 1",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eilaoc/Music-Society.git"
+  },
+  "author": "Eila O'Connor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eilaoc/Music-Society/issues"
+  },
+  "homepage": "https://github.com/eilaoc/Music-Society#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

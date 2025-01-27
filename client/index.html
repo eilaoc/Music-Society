@@ -56,9 +56,46 @@
             </div>
             <div class="text-center my-4">
               <p>Find upcoming events around the city.</p>
-              <button class="btn btn-primary rounded-pill px-4 py-2">Add an Event</button>
+              <button id="addEventBtn" class="btn btn-primary rounded-pill px-4 py-2">Add an Event</button>
             </div>
-          </section>
+
+            <!-- event form -->
+            <div id="addEventForm" style="display: none;">
+                <h3>Create New Event</h3>
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventTitle">Title</label>
+                        <input type="text" id="eventTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Time</label>
+                        <input type="datetime-local" id="eventTime" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventCapacity">Capacity</label>
+                        <input type="number" id="eventCapacity" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventImageURL">Image URL</label>
+                        <input type="text" id="eventImageURL" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Event</button>
+                </form>
+            </div>
+        
+            <!-- events -->
+            <div id="eventsContainer" class="mt-4">
+
+            </div>
+        </section>
       
           <section id="musicians" class="section" style="display: none;">
             <div class="bg-primary text-white text-center py-5">

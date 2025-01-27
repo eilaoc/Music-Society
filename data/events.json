@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Open Mic Night",
+    "location": "Durham",
+    "time": "2025-02-01T19:00:00",
+    "capacity": 100,
+    "description": "A fun evening of music!",
+    "imageURL": "assets/images/event1.jpg"
+  },
+  {
+    "title": "Local Concert",
+    "location": "Newcastle",
+    "time": "2025-02-10T18:00:00",
+    "capacity": 150,
+    "description": "Join us for a night of live music.",
+    "imageURL": "assets/images/event2.jpg"
+  }
+]
