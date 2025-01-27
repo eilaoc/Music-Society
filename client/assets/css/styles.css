@@ -1,0 +1,5 @@
+#myProfileContainer {
+    display: flex;
+    justify-content: center; /* center row */
+    margin: 20px 0; 
+  }

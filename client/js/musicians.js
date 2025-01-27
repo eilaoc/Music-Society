@@ -42,59 +42,54 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         return profileCard;
     }
+    
 
 
-    createProfileButton.addEventListener('click', () => {
-        if (!userProfile) {
+    //show form with previous inputs
+    function showProfileForm(profile = null) {
+        musiciansForm.innerHTML = `
+            <h3>${profile ? 'Edit' : 'Create'} My Profile</h3>
+            <form id="musicianForm">
+                <div class="form-group">
+                    <label for="musicianName">Name</label>
+                    <input type="text" id="musicianName" class="form-control" value="${profile?.name || ''}" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicianInstruments">Instrument(s)</label>
+                    <input type="text" id="musicianInstruments" class="form-control" value="${profile?.instruments || ''}" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicianAbout">About</label>
+                    <textarea id="musicianAbout" class="form-control" required>${profile?.about || ''}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="musicianLocation">Location</label>
+                    <input type="text" id="musicianLocation" class="form-control" value="${profile?.location || ''}" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicianImage">Image URL</label>
+                    <input type="text" id="musicianImage" class="form-control" value="${profile?.image || ''}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">${profile ? 'Save Changes' : 'Create Profile'}</button>
+            </form>
+        `;
+        musiciansForm.style.display = 'block';
+        createProfileButton.parentNode.insertAdjacentElement('beforeend', musiciansForm);
 
-            musiciansForm.innerHTML = `
-                <h3>${userProfile ? 'Edit' : 'Create'} My Profile</h3>
-                <form id="musicianForm">
-                    <div class="form-group">
-                        <label for="musicianName">Name</label>
-                        <input type="text" id="musicianName" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="musicianInstruments">Instrument(s)</label>
-                        <input type="text" id="musicianInstruments" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="musicianAbout">About</label>
-                        <textarea id="musicianAbout" class="form-control" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="musicianLocation">Location</label>
-                        <input type="text" id="musicianLocation" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="musicianImage">Image URL</label>
-                        <input type="text" id="musicianImage" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">${userProfile ? 'Edit' : 'Create'} Profile</button>
-                </form>
-            `;
-            musiciansForm.style.display = 'block';
-            createProfileButton.parentNode.insertAdjacentElement('beforeend', musiciansForm);
-        } else {
-            
-            document.getElementById('musicianName').value = userProfile.name;
-            document.getElementById('musicianInstruments').value = userProfile.instruments;
-            document.getElementById('musicianAbout').value = userProfile.about;
-            document.getElementById('musicianLocation').value = userProfile.location;
-            document.getElementById('musicianImage').value = userProfile.image;
-        }
 
         document.getElementById('musicianForm').addEventListener('submit', (e) => {
             e.preventDefault();
 
             //form data
-            userProfile = {
+            const updatedProfile = {
                 name: document.getElementById('musicianName').value,
                 instruments: document.getElementById('musicianInstruments').value,
                 about: document.getElementById('musicianAbout').value,
                 location: document.getElementById('musicianLocation').value,
                 image: document.getElementById('musicianImage').value,
             };
+
+            userProfile = updatedProfile; 
 
 
             createProfileButton.textContent = 'Edit Profile';
@@ -106,14 +101,17 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 const myProfileDiv = document.createElement('div');
                 myProfileDiv.id = 'myProfile';
+                myProfileDiv.classList.add('d-flex', 'justify-content-center', 'mt-4'); 
                 myProfileDiv.appendChild(createProfileElement(userProfile));
                 createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
+
             }
-
-
             musiciansForm.style.display = 'none';
         });
-    });
+    }
 
+    createProfileButton.addEventListener('click', () => {
+        showProfileForm(userProfile); 
+    });
     loadMusicians();
 });
