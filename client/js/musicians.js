@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // create profile
     function createProfileElement(profile) {
         const profileCard = document.createElement('div');
-        profileCard.classList.add('col-md-5', 'card', 'm-2', 'p-3', 'text-center');
+        profileCard.classList.add('col-md-3', 'card', 'm-2', 'p-3', 'text-center');
         profileCard.innerHTML = `
             <img src="${profile.image}" alt="${profile.name}" class="card-img-top" style="height: 150px; object-fit: cover;">
             <div class="card-body">
