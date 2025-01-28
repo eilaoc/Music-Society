@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Eater&family=Orbitron:wght@500&display=swap" rel="stylesheet">
     </head>
     <body>
-        <!-- top Bar -->
+        <!-- navbar -->
         <nav class="navbar navbar-light bg-white border-bottom">
           <div class="container-fluid">
             <button class="btn btn-outline-primary" onclick="location.reload()">Reload Page</button>
@@ -43,10 +43,17 @@
           <section id="home" class="section active">
             <div class="bg-primary text-white text-center py-5">
               <h1>Connecting musicians around the city</h1>
+              <div class="padding1"></div>
+              <button class="btn btn-dark rounded-pill px-4 py-2" data-target="events">Find Events ➜</button>
+              <p class="mt-3"><a href="#" class="link-light" data-target="musicians">Create a profile</a></p>
             </div>
             <div class="text-center my-4">
-              <button class="btn btn-primary rounded-pill px-4 py-2" data-target="events">Find Events</button>
-              <p class="mt-3"><a href="#" class="link-primary" data-target="musicians">Create a profile</a></p>
+              <p class="display-3">Highlights</p>
+            </div>
+            <div class="textpadding">
+              <h3>Upcoming Events</h3>
+              <div id="randomEventContainer" class="mb-4"></div>
+              <div class="text-center"><p class="mt-3"><a href="#" class="link-dark" data-target="events">See More</a></p></div>
             </div>
           </section>
       
@@ -113,5 +120,6 @@
         <script src="js\navigation.js"></script>
         <script src="js\events.js"></script>
         <script src="js\musicians.js"></script>
+        <script src="js\index.js"></script>
       </body>
       </html>

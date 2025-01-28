@@ -45,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => console.error('Error loading musicians:', error));
     }
+
+
     // create profile
     function createProfileElement(profile) {
         const profileCard = document.createElement('div');
@@ -137,6 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    
     createProfileButton.addEventListener('click', () => {
         showProfileForm(userProfile); 
     });

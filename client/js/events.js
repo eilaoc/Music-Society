@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         addEventForm.style.display = 'block'; 
     });
 
+    //event form
     eventForm.addEventListener('submit', (e) => {
         e.preventDefault();
 

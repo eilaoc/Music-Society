@@ -3,3 +3,32 @@
     justify-content: center; /* center row */
     margin: 20px 0; 
   }
+
+  .btn-dark, .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
+    background-color: #002763 !important;
+    border-color: #002763 !important;
+}
+
+div.padding1 {
+  padding:10px;
+}
+
+div.textpadding {
+  padding-left:10px;
+}
+
+
+.event-card {
+  background-color: #98deff; 
+  border-radius: 15px;     
+  padding: 20px;            
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  align-items: center;
+  margin: 10px auto;        
+  max-width: 600px;         
+}
+.event-card img {
+  border-radius: 10px;      
+  margin-right: 20px;       
+}
