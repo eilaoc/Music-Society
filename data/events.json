@@ -24,6 +24,14 @@
     "imageURL": "assets/images/event3.jpg"
   },
   {
+    "title": "Art gallery",
+    "location": "here",
+    "time": "2025-02-28T01:44",
+    "capacity": "45",
+    "description": "dfh",
+    "imageURL": "\"\""
+  },
+  {
     "title": "Silent Disco",
     "location": "Newcastle",
     "time": "2025-03-10T18:00:00",
@@ -34,9 +42,9 @@
   {
     "title": "Art gallery",
     "location": "here",
-    "time": "2025-02-28T01:44",
-    "capacity": "45",
-    "description": "dfh",
+    "time": "2025-01-09T02:17",
+    "capacity": "456",
+    "description": "sdfgf",
     "imageURL": "\"\""
   }
 ]

@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {   
 
     const addEventButton = document.getElementById('addEventBtn');
-    //const addEventForm = document.getElementById('addEventForm');
     const eventForm = document.getElementById('eventForm');
     const upcomingEventsContainer = document.getElementById('upcomingEventsContainer');
     const previousEventsContainer = document.getElementById('previousEventsContainer');
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     eventForm.addEventListener('submit', (e) => {
         e.preventDefault();
         eventForm.style.display = 'none'; 
-        addEventForm.style.display = 'none'; 
         // get data from form
         const newEvent = {
             title: document.getElementById('eventTitle').value,
@@ -42,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
             eventForm.reset();
             console.log("Hiding form:", addEventForm);
             eventForm.style.display = 'none'; 
-            addEventForm.style.display = 'none'; 
             
         })
         .catch(error => console.error('Error adding event:', error));

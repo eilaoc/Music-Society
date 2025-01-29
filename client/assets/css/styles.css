@@ -1,12 +1,20 @@
 #myProfileContainer {
     display: flex;
-    justify-content: center; /* center row */
+    justify-content: center; 
     margin: 20px 0; 
   }
 
-  .btn-dark, .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
+.btn-dark, .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
     background-color: #002763 !important;
     border-color: #002763 !important;
+}
+
+.bg-light, .text-bg-light {
+  background-color: #d3eaff !important;
+}
+
+.bg-primary {
+  background-color: #0687ff !important;
 }
 
 div.padding1 {
@@ -18,8 +26,8 @@ div.textpadding {
 }
 
 div.formpadding {
-  padding-left:20px;
-  padding-right:20px;
+  padding-left:10vw;
+  padding-right:10vw;
   padding-top:20px;
 }
 
