@@ -8,14 +8,6 @@
     "imageURL": "assets/images/event1.jpg"
   },
   {
-    "title": "Local Concert 2",
-    "location": "Durham",
-    "time": "2025-01-31T03:13",
-    "capacity": "200",
-    "description": "Come join us for a musical night!",
-    "imageURL": "assets/images/event4.jpg"
-  },
-  {
     "title": "Local Concert",
     "location": "Newcastle",
     "time": "2025-02-09T18:00:00",
@@ -38,13 +30,5 @@
     "capacity": 250,
     "description": "Dance the night away!",
     "imageURL": "assets/images/event3.jpg"
-  },
-  {
-    "title": "new event",
-    "location": "Newcastle",
-    "time": "2025-01-29T04:08:01.717Z",
-    "capacity": 100,
-    "description": "new event!",
-    "imageURL": "assets/images/event1.jpg"
   }
 ]

@@ -30,12 +30,5 @@
     "location": "Durham",
     "image": "assets/images/profile4.jpg",
     "isUserProfile": false
-  },
-  {
-    "name": "Eila OC",
-    "instruments": "Guitar",
-    "about": "Guitarist",
-    "location": "Newcastle",
-    "image": "assets/images/profile2.jpg"
   }
 ]

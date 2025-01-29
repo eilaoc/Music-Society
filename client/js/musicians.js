@@ -9,45 +9,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createProfileButton.parentNode.insertAdjacentElement('afterend', musiciansContainer);
 
-    // get musician profiles
-    function loadMusicians() {
-        fetch('/api/musicians')
-            .then(response => response.json())
-            .then(musicians => {
-                musiciansContainer.innerHTML = ''; 
+    // load musicians
+    async function loadMusicians() {
+        try {
+            const response = await fetch('/api/musicians');
+            const musicians = await response.json();
+            musiciansContainer.innerHTML = ''; 
 
-                musicians.forEach(musician => {
-                    if (musician.isUserProfile) {
-                        userProfile = musician; 
-                    } else {
-                        const profileElement = createProfileElement(musician);
-                        musiciansContainer.appendChild(profileElement);
-                    }
-                });
+            musicians.forEach(musician => {
+                if (musician.isUserProfile) {
+                    userProfile = musician;
+                } else {
+                    const profileElement = createProfileElement(musician);
+                    musiciansContainer.appendChild(profileElement);
+                }
+            });
 
-                //get user profile
-                fetch('/api/user')
-                    .then(response => response.json())
-                    .then(profile => {
-                        if (profile && Object.keys(profile).length > 0) { 
-                            userProfile = profile;
-                            const myProfileDiv = document.createElement('div');
-                            myProfileDiv.id = 'myProfile';
-                            myProfileDiv.classList.add('row', 'justify-content-center');
-                            myProfileDiv.appendChild(createProfileElement(userProfile));
-                            createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
-                            createProfileButton.textContent = 'Edit Profile';
-                        } else {
-                            
-                            createProfileButton.textContent = 'Create Profile';
-                        }
-                    });
-            })
-            .catch(error => console.error('Error loading musicians:', error));
+            // get user profile
+            const profileResponse = await fetch('/api/user');
+            const profile = await profileResponse.json();
+
+            if (profile && Object.keys(profile).length > 0) {
+                userProfile = profile;
+                const myProfileDiv = document.createElement('div');
+                myProfileDiv.id = 'myProfile';
+                myProfileDiv.classList.add('row', 'justify-content-center');
+                myProfileDiv.appendChild(createProfileElement(userProfile));
+                createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
+                createProfileButton.textContent = 'Edit Profile';
+            } else {
+                createProfileButton.textContent = 'Create Profile';
+            }
+        } catch (error) {
+            console.error('Error loading musicians:', error);
+        }
     }
 
-
-    // create profile
+    // create profile element
     function createProfileElement(profile) {
         const profileCard = document.createElement('div');
         profileCard.classList.add('col-md-3', 'card', 'profile-card');
@@ -62,10 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         return profileCard;
     }
-    
 
-
-    //show form - had to use inline html otherwise it wouldn't show up correctly
+    // show profile form
     function showProfileForm(profile = null) {
         musiciansForm.innerHTML = `
             <h3>${profile ? 'Edit' : 'Create'} My Profile</h3>
@@ -90,17 +86,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="musicianImage">Image URL</label>
                     <input type="text" id="musicianImage" class="form-control" value="${profile?.image || ''}" required>
                 </div>
-                <button type="submit" class="btn btn-primary">${profile ? 'Save Changes' : 'Save Changes'}</button>
+                <button type="submit" class="btn btn-primary">${profile ? 'Save Changes' : 'Save Profile'}</button>
             </form>
         `;
         musiciansForm.style.display = 'block';
         createProfileButton.parentNode.insertAdjacentElement('beforeend', musiciansForm);
 
-
-        document.getElementById('musicianForm').addEventListener('submit', (e) => {
+        document.getElementById('musicianForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            //form data
             const updatedProfile = {
                 name: document.getElementById('musicianName').value,
                 instruments: document.getElementById('musicianInstruments').value,
@@ -109,18 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 image: document.getElementById('musicianImage').value,
             };
 
+            try {
+                await saveProfile(updatedProfile);
 
-
-            fetch('/api/user/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedProfile)
-            })
-            .then(() => {
                 createProfileButton.textContent = 'Edit Profile';
-
                 const userProfileSection = document.querySelector('#myProfile');
                 if (userProfileSection) {
                     userProfileSection.innerHTML = '';
@@ -128,20 +114,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     const myProfileDiv = document.createElement('div');
                     myProfileDiv.id = 'myProfile';
-                    myProfileDiv.classList.add('row', 'justify-content-center', 'mt-4'); 
+                    myProfileDiv.classList.add('row', 'justify-content-center', 'mt-4');
                     myProfileDiv.appendChild(createProfileElement(updatedProfile));
                     createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
                 }
 
                 musiciansForm.style.display = 'none';
-            })
-            .catch(error => console.error('Error saving profile:', error));
+            } catch (error) {
+                console.error('Error saving profile:', error);
+            }
         });
     }
 
-    
+    // save profile
+    async function saveProfile(profile) {
+        const response = await fetch('/api/user/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(profile),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to save profile');
+        }
+    }
+
+    // show form
     createProfileButton.addEventListener('click', () => {
-        showProfileForm(userProfile); 
+        showProfileForm(userProfile);
     });
+
     loadMusicians();
 });
