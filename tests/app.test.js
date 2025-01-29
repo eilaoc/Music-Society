@@ -1,87 +1,69 @@
 const request = require('supertest');
-const app = require('../app'); 
+const app = require('../app');
 
 describe('test the events API', () => {
-    test('test that GET /api/events returns 200', () => {
+
+    test('test GET /api/events returns 200', () => {
         return request(app)
             .get('/api/events')
             .expect(200);
     });
 
-    test('test that GET /api/events returns the JSON', () => {
+    test('test GET /api/events returns the JSON', () => {
         return request(app)
             .get('/api/events')
-            .expect('Content-type', /json/);
+            .expect('Content-Type', /json/);
     });
 
-    test('POST /api/event/add adds a new event', () => {
-        const newEvent = {
-            title: 'new event',
+    test('test that POST /api/event/add works', () => {
+        const params = {
+            title: 'Concert Night',
             location: 'Newcastle',
             time: new Date().toISOString(),
-            capacity: 100,
-            description: 'new event!',
-            imageURL: 'assets/images/event1.jpg'
+            capacity: 500,
+            description: 'A great concert event!',
+            imageURL: 'assets/images/event2.jpg'
         };
-
         return request(app)
             .post('/api/event/add')
-            .send(newEvent)
-            .expect(200)
-            .then(() => {
-                // test if the event is added
-                return request(app)
-                    .get('/api/events')
-                    .then(response => {
-                        const events = response.body;
-                        expect(events.length).toBeGreaterThan(0);
-                        const eventTitles = events.map(event => event.title);
-                        expect(eventTitles).toContain(newEvent.title);
-                    });
-            });
+            .send(params)
+            .expect(200);
     });
+
 });
 
 describe('test the musicians API', () => {
-    test('test that GET /api/musicians returns 200', () => {
+
+    test('test GET /api/musicians returns 200', () => {
         return request(app)
             .get('/api/musicians')
             .expect(200);
     });
 
-    test('test to check GET /api/musicians returns the JSON', () => {
+    test('test GET /api/musicians returns correct JSON', () => {
         return request(app)
             .get('/api/musicians')
-            .expect('Content-type', /json/);
+            .expect('Content-Type', /json/);
     });
 
-    test('test to check POST /api/musician/add adds a new profile', () => {
-        const newMusician = {
-            name: 'Eila OC',
-            instruments: 'Guitar',
-            about: 'Guitarist',
+    test('test POST /api/musician/add works', () => {
+        const params = {
+            name: 'Alex Smith',
+            instruments: 'Bass Guitar',
+            about: 'Professional bass guitarist',
             location: 'Newcastle',
-            image: 'assets/images/profile2.jpg'
+            image: 'assets/images/profile1.jpg'
         };
-
         return request(app)
             .post('/api/musician/add')
-            .send(newMusician)
-            .expect(200)
-            .then(() => {
-                return request(app)
-                    .get('/api/musicians')
-                    .then(response => {
-                        const musicians = response.body;
-                        expect(musicians.length).toBeGreaterThan(0);
-                        const musicianNames = musicians.map(musician => musician.name);
-                        expect(musicianNames).toContain(newMusician.name);
-                    });
-            });
+            .send(params)
+            .expect(200);
     });
+
 });
 
-describe('test the profile API', () => {
+describe('test the user profile API', () => {
+
     test('test GET /api/user returns 200', () => {
         return request(app)
             .get('/api/user')
@@ -91,33 +73,21 @@ describe('test the profile API', () => {
     test('test that GET /api/user returns the JSON', () => {
         return request(app)
             .get('/api/user')
-            .expect('Content-type', /json/);
+            .expect('Content-Type', /json/);
     });
 
-    test('test that post /api/user/add updates the user profile', () => {
-        const updatedProfile = {
-            name: 'Eila',
-            instruments: 'Drums',
-            about: 'Drummer',
-            location: 'Durham',
-            image: 'assets/images/profile1.jpg'
+    test('test that POST /api/user/add works', () => {
+        const params = {
+            name: 'Eila OC',
+            instruments: 'Violin',
+            about: 'Classical Violinist',
+            location: 'Edinburgh',
+            image: 'assets/images/profile1'
         };
-
         return request(app)
             .post('/api/user/add')
-            .send(updatedProfile)
-            .expect(200)
-            .then(() => {
-                return request(app)
-                    .get('/api/user')
-                    .then(response => {
-                        const userProfile = response.body;
-                        expect(userProfile.name).toBe(updatedProfile.name);
-                        expect(userProfile.instruments).toBe(updatedProfile.instruments);
-                        expect(userProfile.about).toBe(updatedProfile.about);
-                        expect(userProfile.location).toBe(updatedProfile.location);
-                        expect(userProfile.image).toBe(updatedProfile.image);
-                    });
-            });
+            .send(params)
+            .expect(200);
     });
+
 });

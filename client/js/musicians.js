@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const createProfileButton = document.querySelector('#musicians .btn');
     const musiciansContainer = document.createElement('div');
-    const musiciansForm = document.createElement('div');
-    let userProfile = null; 
+    const musiciansForm = document.querySelector('#musicianForm'); 
+    let userProfile = null;
 
     musiciansContainer.classList.add('row', 'justify-content-center', 'mt-4');
     musiciansForm.style.display = 'none';
@@ -63,33 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // show profile form
     function showProfileForm(profile = null) {
-        musiciansForm.innerHTML = `
-            <h3>${profile ? 'Edit' : 'Create'} My Profile</h3>
-            <form id="musicianForm">
-                <div class="form-group">
-                    <label for="musicianName">Name</label>
-                    <input type="text" id="musicianName" class="form-control" value="${profile?.name || ''}" required>
-                </div>
-                <div class="form-group">
-                    <label for="musicianInstruments">Instrument(s)</label>
-                    <input type="text" id="musicianInstruments" class="form-control" value="${profile?.instruments || ''}" required>
-                </div>
-                <div class="form-group">
-                    <label for="musicianAbout">About</label>
-                    <textarea id="musicianAbout" class="form-control" required>${profile?.about || ''}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="musicianLocation">Location</label>
-                    <input type="text" id="musicianLocation" class="form-control" value="${profile?.location || ''}" required>
-                </div>
-                <div class="form-group">
-                    <label for="musicianImage">Image URL</label>
-                    <input type="text" id="musicianImage" class="form-control" value="${profile?.image || ''}" required>
-                </div>
-                <button type="submit" class="btn btn-primary">${profile ? 'Save Changes' : 'Save Profile'}</button>
-            </form>
-        `;
         musiciansForm.style.display = 'block';
+        createProfileButton.style.display = 'none'; 
         createProfileButton.parentNode.insertAdjacentElement('beforeend', musiciansForm);
 
         document.getElementById('musicianForm').addEventListener('submit', async (e) => {
@@ -107,6 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 await saveProfile(updatedProfile);
 
                 createProfileButton.textContent = 'Edit Profile';
+                createProfileButton.style.display = 'block';
+
                 const userProfileSection = document.querySelector('#myProfile');
                 if (userProfileSection) {
                     userProfileSection.innerHTML = '';

@@ -3,73 +3,65 @@ const fs = require('fs');
 
 const app = express();
 
-// load events
 let events = require('./data/events.json');
-
-app.use(express.json()); 
-app.use(express.static('client')); 
-
-//sort the events
-function sortEventsByDate(events) {
-    return events.sort((a, b) => {
-        const dateA = new Date(a.time);  
-        const dateB = new Date(b.time); 
-        return dateA - dateB;  
-    });
-}
-
-// get events
-app.get('/api/events', (req, resp) => {
-    const sortedEvents = sortEventsByDate(events);  
-    resp.json(sortedEvents); 
-});
-
-// add new event
-app.post('/api/event/add', (req, resp) => {
-    const { title, location, time, capacity, description, imageURL } = req.body;
-    const newEvent = { title, location, time, capacity, description, imageURL };
-
-    events.push(newEvent);
-
-    const eventsText = JSON.stringify(events, null, 2); 
-    fs.writeFileSync('./data/events.json', eventsText);
-
-    resp.sendStatus(200); 
-});
-
-//load musicians
 let musicians = require('./data/musicians.json');
 let userProfile = require('./data/user.json');
 
-//get musicians
-app.get('/api/musicians', (req, res) => {
+console.log("Loaded Events:", events);
+console.log("Loaded Musicians:", musicians);
+console.log("Loaded User Profile:", userProfile);
+
+app.use(express.json());
+app.use(express.static('client'));
+
+// Sort events by date
+function sortEventsByDate(events) {
+    return events.sort((a, b) => new Date(a.time) - new Date(b.time));
+}
+
+// Get events (sorted)
+app.get('/api/events', function(req, resp) {
+    let sortedEvents = sortEventsByDate(events);
+    resp.json(sortedEvents);
+});
+
+// Add new event
+app.post('/api/event/add', function(req, resp) {
+    let { title, location, time, capacity, description, imageURL } = req.body;
+    let newEvent = { title, location, time, capacity, description, imageURL };
+    console.log("New Event:", newEvent);
+    events.push(newEvent);
+    fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
+    resp.sendStatus(200);
+});
+
+// Get musicians
+app.get('/api/musicians', function(req, res) {
     res.json(musicians);
 });
 
-//add new profile
-app.post('/api/musician/add', (req, resp) => {
-    const { name, instruments, about, location, image } = req.body;
-    const newProfile = { name, instruments, about, location, image };
+// Add new musician profile
+app.post('/api/musician/add', function(req, resp) {
+    let { name, instruments, about, location, image } = req.body;
+    let newProfile = { name, instruments, about, location, image };
+    console.log("New Musician:", newProfile);
     musicians.push(newProfile);
-    const musiciansText = JSON.stringify(musicians, null, 2);
-    fs.writeFileSync('./data/musicians.json', musiciansText);
+    fs.writeFileSync('./data/musicians.json', JSON.stringify(musicians, null, 2));
     resp.sendStatus(200);
 });
 
-// get user profile
-app.get('/api/user', (req, res) => {
+// Get user profile
+app.get('/api/user', function(req, res) {
     res.json(userProfile);
 });
 
-//change user profile
-app.post('/api/user/add', (req, resp) => {
-    const { name, instruments, about, location, image } = req.body;
+// Update user profile
+app.post('/api/user/add', function(req, resp) {
+    let { name, instruments, about, location, image } = req.body;
     userProfile = { name, instruments, about, location, image };
-    const userProfileText = JSON.stringify(userProfile, null, 2);
-    fs.writeFileSync('./data/user.json', userProfileText);
+    console.log("Updated User Profile:", userProfile);
+    fs.writeFileSync('./data/user.json', JSON.stringify(userProfile, null, 2));
     resp.sendStatus(200);
 });
-
-
 
 module.exports = app;
