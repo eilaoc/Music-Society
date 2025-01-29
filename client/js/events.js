@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addEventButton.addEventListener('click', () => {
         addEventForm.style.display = 'block'; 
+        eventForm.style.display = 'block'; 
     });
 
     //event form
     eventForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
+        eventForm.style.display = 'none'; 
+        addEventForm.style.display = 'none'; 
         // get data from form
         const newEvent = {
             title: document.getElementById('eventTitle').value,
@@ -40,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
             eventForm.reset();
             console.log("Hiding form:", addEventForm);
             eventForm.style.display = 'none'; 
+            addEventForm.style.display = 'none'; 
+            
         })
         .catch(error => console.error('Error adding event:', error));
     });

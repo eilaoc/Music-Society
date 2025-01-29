@@ -8,30 +8,6 @@
     "imageURL": "assets/images/event1.jpg"
   },
   {
-    "title": "Art gallery",
-    "location": "here",
-    "time": "2025-01-25T00:27",
-    "capacity": "200",
-    "description": "dffhj",
-    "imageURL": "\"\""
-  },
-  {
-    "title": "Art gallery",
-    "location": "here",
-    "time": "2025-01-25T00:27",
-    "capacity": "200",
-    "description": "dffhj",
-    "imageURL": "\"\""
-  },
-  {
-    "title": "Art gallery",
-    "location": "here",
-    "time": "2025-01-31T00:35",
-    "capacity": "20",
-    "description": "cfgh",
-    "imageURL": "\"\""
-  },
-  {
     "title": "Local Concert",
     "location": "Newcastle",
     "time": "2025-02-09T18:00:00",
@@ -58,9 +34,9 @@
   {
     "title": "Art gallery",
     "location": "here",
-    "time": "2025-01-09T00:39",
-    "capacity": "20",
-    "description": "rdrfg",
+    "time": "2025-02-28T01:44",
+    "capacity": "45",
+    "description": "dfh",
     "imageURL": "\"\""
   }
 ]

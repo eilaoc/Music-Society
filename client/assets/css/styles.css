@@ -17,6 +17,12 @@ div.textpadding {
   padding-left:10px;
 }
 
+div.formpadding {
+  padding-left:20px;
+  padding-right:20px;
+  padding-top:20px;
+}
+
 
 .event-card {
   background-color: #98deff; 
