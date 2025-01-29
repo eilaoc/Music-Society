@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // create profile
     function createProfileElement(profile) {
         const profileCard = document.createElement('div');
-        profileCard.classList.add('col-md-3', 'card', 'm-2', 'p-3', 'text-center');
+        profileCard.classList.add('col-md-3', 'card', 'profile-card');
         profileCard.innerHTML = `
             <img src="${profile.image}" alt="${profile.name}" class="card-img-top" style="height: 150px; object-fit: cover;">
             <div class="card-body">
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
 
-    //show form with previous inputs
+    //show form
     function showProfileForm(profile = null) {
         musiciansForm.innerHTML = `
             <h3>${profile ? 'Edit' : 'Create'} My Profile</h3>

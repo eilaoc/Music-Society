@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {   
-    // addevent form
+
     const addEventButton = document.getElementById('addEventBtn');
-    const addEventForm = document.getElementById('addEventForm');
+    //const addEventForm = document.getElementById('addEventForm');
     const eventForm = document.getElementById('eventForm');
-    const eventsContainer = document.getElementById('eventsContainer');
+    const upcomingEventsContainer = document.getElementById('upcomingEventsContainer');
+    const previousEventsContainer = document.getElementById('previousEventsContainer');
+
 
     addEventButton.addEventListener('click', () => {
         addEventForm.style.display = 'block'; 
@@ -35,8 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(() => {
           //reload events
             loadEvents(); 
-            addEventForm.reset(); 
-            addEventForm.style.display = 'none'; 
+            eventForm.reset();
+            console.log("Hiding form:", addEventForm);
+            eventForm.style.display = 'none'; 
         })
         .catch(error => console.error('Error adding event:', error));
     });
@@ -46,12 +49,19 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch('/api/events')
         .then(response => response.json())
         .then(events => {
-            eventsContainer.innerHTML = ''; 
+            upcomingEventsContainer.innerHTML = ''; 
+            previousEventsContainer.innerHTML = '';
+
+
 
             if (events.length === 0) {
-                eventsContainer.innerHTML = '<p>No events available.</p>';
+                upcomingEventsContainer.innerHTML = '<p>No events available.</p>';
+                previousEventsContainer.innerHTML = '<p>No events available.</p>';
             } else {
+                const currentDate = new Date(); 
+
                 events.forEach(event => {
+                    const eventDate = new Date(event.time); 
                     const eventCard = document.createElement('div');
                     eventCard.classList.add('event-card', 'd-flex', 'align-items-center', 'mb-4');
 
@@ -65,13 +75,19 @@ document.addEventListener("DOMContentLoaded", () => {
                             <p><strong>Description:</strong> ${event.description}</p>
                         </div>
                     `;
-                    eventsContainer.appendChild(eventCard);
+
+                    if (eventDate >= currentDate) {
+                        upcomingEventsContainer.appendChild(eventCard); 
+                    } else {
+                        previousEventsContainer.appendChild(eventCard);
+                    }
                 });
+
             }
         })
         .catch(error => {
             console.error('Error loading events:', error);
-            eventsContainer.innerHTML = '<p>Failed to load events.</p>';
+            upcomingEventsContainer.innerHTML = '<p>Failed to load events.</p>';
         });
     }
 
