@@ -66,74 +66,76 @@
       
           <section id="events" class="section" style="display: none;">
             <div class="bg-primary text-white text-center py-5">
-              <h1>Events</h1>
-              <p>Find upcoming events around the city</p>
-              <button id="addEventBtn" class="btn btn-dark rounded-pill px-4 py-2">Add an Event</button>
+                <h1>Events</h1>
+                <p>Find upcoming events around the city</p>
+                <button id="addEventBtn" class="btn btn-dark rounded-pill px-4 py-2">Add an Event</button>
             </div>
-            <div class="formpadding">
-            </div>
-
+        
+            <div class="formpadding"></div>
+        
             <!-- event form -->
-            <div id="addEventForm" style="display: none;">
-              <div class="formpadding">
-                <h3>Create New Event</h3>
-                <form id="eventForm">
-                    <div class="form-group">
-                        <label for="eventTitle">Title</label>
-                        <input type="text" id="eventTitle" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventLocation">Location</label>
-                        <input type="text" id="eventLocation" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventTime">Time</label>
-                        <input type="datetime-local" id="eventTime" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventCapacity">Capacity</label>
-                        <input type="number" id="eventCapacity" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventDescription">Description</label>
-                        <textarea id="eventDescription" class="form-control" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventImageURL">Image URL</label>
-                        <input type="text" id="eventImageURL" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Event</button>
-                </form>
-              </div>
+            <div id="addEventForm" class="form-section">
+                <div class="formpadding">
+                    <h3>Create New Event</h3>
+                    <form id="eventForm">
+                        <div class="form-group">
+                            <label for="eventTitle">Title</label>
+                            <input type="text" id="eventTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventLocation">Location</label>
+                            <input type="text" id="eventLocation" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventTime">Time</label>
+                            <input type="datetime-local" id="eventTime" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventCapacity">Capacity</label>
+                            <input type="number" id="eventCapacity" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDescription">Description</label>
+                            <textarea id="eventDescription" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventImageURL">Image URL</label>
+                            <input type="text" id="eventImageURL" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Event</button>
+                    </form>
+                </div>
             </div>
+        
             <div class="text-center my-4">
-              <h1>Upcoming Events</h1>
+                <h1>Upcoming Events</h1>
             </div>
             <!-- upcoming events -->
             <div id="upcomingEventsContainer" class="mt-4">
             </div>
+        
             <div class="text-center my-4">
-              <h1>Past Events</h1>
+                <h1>Past Events</h1>
             </div>
             <!-- previous events -->
             <div id="previousEventsContainer" class="mt-4">
             </div>
         </section>
-
+        
         <!--musicians-->
         <section id="musicians" class="section" style="display: none;">
-          <div class="bg-primary text-white text-center py-5">
-              <h1>Musicians</h1>
-              <p>Connect with musicians in the area</p>
-          </div>
-          <div class="text-center my-4">
-            <p class="display-5">My Profile</p>
-          </div>
-          <div class="text-center my-4">
-              <button class="btn btn-primary rounded-pill px-4 py-2">Create a Profile</button>
-          </div>
-          <div id="myProfileContainer"></div>
-      </section>
+            <div class="bg-primary text-white text-center py-5">
+                <h1>Musicians</h1>
+                <p>Connect with musicians in the area</p>
+            </div>
+            <div class="text-center my-4">
+                <p class="display-5">My Profile</p>
+            </div>
+            <div class="text-center my-4">
+                <button class="btn btn-primary rounded-pill px-4 py-2">Create a Profile</button>
+            </div>
+            <div id="myProfileContainer"></div>
+        </section>
 
       <footer class="pt-3 mt-4 text-body-secondary border-top">
         &copy; 2024, images generated by AI

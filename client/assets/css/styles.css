@@ -1,13 +1,30 @@
+
 #myProfileContainer {
-    display: flex;
-    justify-content: center; 
-    margin: 20px 0; 
-  }
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+div.padding1 {
+  padding: 10px;
+}
+
+div.textpadding {
+  padding-left: 10px;
+}
+
+div.formpadding {
+  padding-left: 10vw;
+  padding-right: 10vw;
+  padding-top: 20px;
+}
+
 
 .btn-dark, .btn-dark:hover, .btn-dark:active, .btn-dark:visited {
-    background-color: #002763 !important;
-    border-color: #002763 !important;
+  background-color: #002763 !important;
+  border-color: #002763 !important;
 }
+
 
 .bg-light, .text-bg-light {
   background-color: #d3eaff !important;
@@ -17,53 +34,55 @@
   background-color: #0687ff !important;
 }
 
-div.padding1 {
-  padding:10px;
-}
-
-div.textpadding {
-  padding-left:10px;
-}
-
-div.formpadding {
-  padding-left:10vw;
-  padding-right:10vw;
-  padding-top:20px;
-}
-
 
 .event-card {
-  background-color: #98deff; 
-  border-radius: 15px;     
-  padding: 20px;            
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  background-color: #98deff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  margin: 10px auto;        
-  max-width: 600px;         
+  margin: 10px auto;
+  max-width: 600px;
 }
+
 .event-card img {
-  border-radius: 10px;      
-  margin-right: 20px;       
+  border-radius: 10px;
+  margin-right: 20px;
 }
+
 
 .profile-card {
-  background-color: #98deff; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
-  border-radius: 10px; 
-  padding: 15px;  
-  margin: 10px; 
+  background-color: #98deff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
   text-align: center;
-}          
-
-.event-card img {
-  border-radius: 10px;      
-  margin-right: 20px;       
 }
+
+.profile-card img {
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
 
 footer {
   text-align: center;
   padding: 3px;
   background-color: #98deff;
   color: white;
+}
+
+
+#addEventForm, #addMusicianForm {
+  display: none;
+}
+
+#addEventForm .form-group, #addMusicianForm .form-group {
+  margin-bottom: 15px;
+}
+
+#eventForm button, #musicianForm button {
+  width: 100%;
 }

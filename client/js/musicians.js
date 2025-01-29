@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
 
-    //show form
+    //show form - had to use inline html otherwise it wouldn't show up correctly
     function showProfileForm(profile = null) {
         musiciansForm.innerHTML = `
             <h3>${profile ? 'Edit' : 'Create'} My Profile</h3>
