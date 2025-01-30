@@ -5,7 +5,11 @@
     "about": "Rock and blues are my go-to!",
     "location": "Durham",
     "image": "assets/images/profile1.jpg",
-    "id": "ec53e399-03ce-4801-9a41-6976474365e2"
+    "id": "ec53e399-03ce-4801-9a41-6976474365e2",
+    "likedEvents": [
+      "4a3f4b25-6faa-4f47-a1ef-d5059fccb59a",
+      "92c9b3b7-b6ff-45c1-b7fe-8b17387bd8ea"
+    ]
   },
   {
     "name": "Izzy Barton",
@@ -13,7 +17,11 @@
     "about": "Love a bit of jazz",
     "location": "Newcastle",
     "image": "assets/images/profile2.jpg",
-    "id": "fd2ddbac-2219-4508-83bc-ede664bca430"
+    "id": "fd2ddbac-2219-4508-83bc-ede664bca430",
+    "likedEvents": [
+      "8ce70b30-e22a-42a5-ae8e-b294a85574b8",
+      "bf747bad-ff6c-4bf2-b5da-0789782dd300"
+    ]
   },
   {
     "name": "Ashley Lyons",
@@ -21,7 +29,10 @@
     "about": "Looking for members for a quartet!",
     "location": "Manchester",
     "image": "assets/images/profile3.jpg",
-    "id": "894e5ac2-3a7d-4ace-aea3-2c83de767a7a"
+    "id": "894e5ac2-3a7d-4ace-aea3-2c83de767a7a",
+    "likedEvents": [
+      "8559da50-d20b-4f7b-ae5e-424c68125405"
+    ]
   },
   {
     "name": "Dylan Rodney",
@@ -29,7 +40,11 @@
     "about": "Local at the Open Mic Night!",
     "location": "Durham",
     "image": "assets/images/profile4.jpg",
-    "id": "1343f99c-01cc-4a50-8ee9-740f5133297e"
+    "id": "1343f99c-01cc-4a50-8ee9-740f5133297e",
+    "likedEvents": [
+      "4a3f4b25-6faa-4f47-a1ef-d5059fccb59a",
+      "bf747bad-ff6c-4bf2-b5da-0789782dd300"
+    ]
   },
   {
     "id": "c641438c-6549-405c-853d-4d149b04130d",
@@ -37,6 +52,10 @@
     "instruments": "Bass Guitar",
     "about": "Professional bass guitarist",
     "location": "Newcastle",
-    "image": "assets/images/profile1.jpg"
+    "image": "assets/images/profile1.jpg",
+    "likedEvents": [
+      "8ce70b30-e22a-42a5-ae8e-b294a85574b8",
+      "92c9b3b7-b6ff-45c1-b7fe-8b17387bd8ea"
+    ]
   }
 ]

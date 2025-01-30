@@ -1,8 +1,21 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const randomEventContainer = document.getElementById("randomEventContainer");
     const recentMembersContainer = document.getElementById('recentMembersContainer'); 
 
-    // load random event
+    // Fetch all events and store them in a lookup object
+    let eventLookup = {};
+
+    async function loadEvents() {
+        try {
+            const response = await fetch('/api/events');
+            const events = await response.json();
+            eventLookup = Object.fromEntries(events.map(event => [event.id, event.title]));
+        } catch (error) {
+            console.error('Error loading events:', error);
+        }
+    }
+
+    // Load random event
     async function loadRandomEvent() {
         try {
             const response = await fetch('/api/events');
@@ -36,15 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // load musicians
+    // Load recent musicians
     async function loadRecentMembers() {
+        await loadEvents(); // Ensure events are loaded before musicians
+
         try {
             const response = await fetch('/api/musicians');
             const musicianList = await response.json();
 
             if (musicianList.length > 0) {
                 const randomProfiles = musicianList.sort(() => 0.5 - Math.random()).slice(0, 2);
-
                 recentMembersContainer.innerHTML = ''; 
 
                 const profilesRow = document.createElement('div');
@@ -54,6 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Fetch full musician details by ID
                     const profileResponse = await fetch(`/api/musicians/${profileInfo.id}`);
                     const profile = await profileResponse.json();
+
+                    // Convert liked event IDs to event titles
+                    const likedEventsTitles = (profile.likedEvents || []).map(id => eventLookup[id] || "Unknown Event").join(", ") || "None";
 
                     const profileCard = document.createElement('div');
                     profileCard.classList.add('col-md-4', 'col-lg-3', 'col-lg-3', 'card', 'profile-card');
@@ -65,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <p><strong>Instrument(s):</strong> ${profile.instruments}</p>
                             <p><strong>Location:</strong> ${profile.location}</p>
                             <p>${profile.about}</p>
+                            <p><strong>Liked Events:</strong> ${likedEventsTitles}</p>
                         </div>
                     `;
                     profilesRow.appendChild(profileCard);
