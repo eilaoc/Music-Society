@@ -8,9 +8,6 @@ let events = require('./data/events.json');
 let musicians = require('./data/musicians.json');
 let userProfile = require('./data/user.json');
 
-console.log("Loaded Events:", events);
-console.log("Loaded Musicians:", musicians);
-console.log("Loaded User Profile:", userProfile);
 
 app.use(express.json());
 app.use(express.static('client'));

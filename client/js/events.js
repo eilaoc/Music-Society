@@ -1,21 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
     const addEventButton = document.getElementById('addEventBtn');
     const eventForm = document.getElementById('eventForm');
-    const eventsSection = document.getElementById('events'); 
+    const eventsSection = document.getElementById('events');
+    const addEventForm = document.getElementById('addEventForm');
     const upcomingEventsContainer = document.getElementById('upcomingEventsContainer');
     const previousEventsContainer = document.getElementById('previousEventsContainer');
 
-    // show events section and form
+    // Show events section and form when 'Add Event' is clicked
     addEventButton.addEventListener('click', () => {
-        eventsSection.style.display = 'block';  
-        document.getElementById('addEventForm').style.display = 'block'; 
+        eventsSection.style.display = 'block';  // Make sure the events section is visible
+        addEventForm.style.display = 'block';  // Show the form to add a new event
     });
 
-    // add new event
+    // Add new event
     eventForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // get data from the form
+        // Get data from the form
         const newEvent = {
             title: document.getElementById('eventTitle').value,
             location: document.getElementById('eventLocation').value,
@@ -26,17 +27,19 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
+            // Add the event to the backend
             await addEvent(newEvent);
-            loadEvents(); 
+            // Load and display the updated events
+            loadEvents();
+            // Reset the form and hide it again
             eventForm.reset();
-            eventForm.style.display = 'none'; 
-            document.getElementById('addEventForm').style.display = 'none';
+            addEventForm.style.display = 'none'; // Hide the form
         } catch (error) {
             console.error('Error adding event:', error);
         }
     });
 
-    // add event function
+    // Add event function
     async function addEvent(newEvent) {
         const response = await fetch('/api/events', {
             method: 'POST',
@@ -49,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // load events and sort into correct containers
+    // Load events and sort them into the correct containers
     async function loadEvents() {
         try {
             const response = await fetch('/api/events');
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // create event card
+    // Create event card
     function createEventCard(event) {
         const eventCard = document.createElement('div');
         eventCard.classList.add('event-card', 'd-flex', 'align-items-center', 'mb-4');
