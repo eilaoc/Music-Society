@@ -74,7 +74,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     const profileCard = document.createElement('div');
                     profileCard.classList.add('col-md-4', 'col-lg-3', 'col-lg-3', 'card', 'profile-card');
-
+                    
+                    //create card for recent musicians
                     profileCard.innerHTML = `
                         <img src="${profile.image}" alt="${profile.name}" class="card-img-top" style="height: 150px; object-fit: cover;">
                         <div class="card-body">

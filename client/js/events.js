@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // load events
+    // load events and sort into correct containers
     async function loadEvents() {
         try {
             const response = await fetch('/api/events');
