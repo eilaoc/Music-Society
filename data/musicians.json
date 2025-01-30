@@ -30,5 +30,13 @@
     "location": "Durham",
     "image": "assets/images/profile4.jpg",
     "id": "1343f99c-01cc-4a50-8ee9-740f5133297e"
+  },
+  {
+    "id": "c641438c-6549-405c-853d-4d149b04130d",
+    "name": "Alex Smith",
+    "instruments": "Bass Guitar",
+    "about": "Professional bass guitarist",
+    "location": "Newcastle",
+    "image": "assets/images/profile1.jpg"
   }
 ]

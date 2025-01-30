@@ -41,20 +41,24 @@ app.get("/api/events", function(req, resp) {
 // get event details by ID
 app.get("/api/events/:id", function(req, resp) {
     let event = events.find(e => e.id === req.params.id);
-    event ? resp.send(event) : resp.status(404).send({ error: "Event not found" });
+    if (event) {
+        resp.send(event);
+    } else {
+        resp.status(404).send({ error: "Event not found" }); 
+    }
 });
 
 // add a new event
 app.post("/api/events", function(req, resp) {
     let { title, location, time, capacity, description, imageURL } = req.body;
     if (!title || !location || !time) {
-        return resp.status(400).send({ error: "Title, location, and time are required" });
+        return resp.status(400).send({ error: "Title, location, and time are required" }); 
     }
     let newEvent = { id: uuidv4(), title, location, time, capacity, description, imageURL };
     console.log("New Event:", newEvent);
     events.push(newEvent);
     fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
-    resp.status(201).send({ message: "Event created successfully", event: newEvent });
+    resp.status(200).send({ message: "Event created successfully", event: newEvent }); 
 });
 
 // get a list of musicians IDs and names
@@ -66,20 +70,24 @@ app.get("/api/musicians", function(req, resp) {
 // get musician details by ID
 app.get("/api/musicians/:id", function(req, resp) {
     let musician = musicians.find(m => m.id === req.params.id);
-    musician ? resp.send(musician) : resp.status(404).send({ error: "Musician not found" });
+    if (musician) {
+        resp.send(musician);
+    } else {
+        resp.status(404).send({ error: "Musician not found" }); 
+    }
 });
 
 // add a new musician
 app.post("/api/musicians", function(req, resp) {
     let { name, instruments, about, location, image } = req.body;
     if (!name || !instruments) {
-        return resp.status(400).send({ error: "Name and instruments are required" });
+        return resp.status(400).send({ error: "Name and instruments are required" }); 
     }
     let newMusician = { id: uuidv4(), name, instruments, about, location, image };
     console.log("New Musician:", newMusician);
     musicians.push(newMusician);
     fs.writeFileSync('./data/musicians.json', JSON.stringify(musicians, null, 2));
-    resp.status(201).send({ message: "Musician added successfully", musician: newMusician });
+    resp.status(200).send({ message: "Musician added successfully", musician: newMusician }); 
 });
 
 // get user profile
@@ -91,12 +99,12 @@ app.get("/api/user", function(req, resp) {
 app.post("/api/user", function(req, resp) {
     let { name, instruments, about, location, image } = req.body;
     if (!name) {
-        return resp.status(400).send({ error: "Name is required" });
+        return resp.status(400).send({ error: "Name is required" }); 
     }
     userProfile = { name, instruments, about, location, image };
     console.log("Updated User Profile:", userProfile);
     fs.writeFileSync('./data/user.json', JSON.stringify(userProfile, null, 2));
-    resp.status(200).send({ message: "User profile updated successfully", user: userProfile });
+    resp.status(200).send({ message: "User profile updated successfully", user: userProfile }); 
 });
 
 module.exports = app;

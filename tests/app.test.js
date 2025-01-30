@@ -27,7 +27,7 @@ describe('test the events API', () => {
         return request(app)
             .post('/api/events')
             .send(params)
-            .expect(201)
+            .expect(200)  
             .expect((response) => {
                 expect(response.body.message).toBe('Event created successfully');
                 expect(response.body.event).toHaveProperty('id');
@@ -43,7 +43,7 @@ describe('test the events API', () => {
         return request(app)
             .post('/api/events')
             .send(params)
-            .expect(400) 
+            .expect(400)  
             .expect((response) => {
                 expect(response.body.error).toBe('Title, location, and time are required');
             });
@@ -76,7 +76,7 @@ describe('test the musicians API', () => {
         return request(app)
             .post('/api/musicians')
             .send(params)
-            .expect(201) 
+            .expect(200)  
             .expect((response) => {
                 expect(response.body.message).toBe('Musician added successfully');
                 expect(response.body.musician).toHaveProperty('id');
@@ -92,7 +92,7 @@ describe('test the musicians API', () => {
         return request(app)
             .post('/api/musicians')
             .send(params)
-            .expect(400) 
+            .expect(400)  
             .expect((response) => {
                 expect(response.body.error).toBe('Name and instruments are required');
             });
@@ -105,13 +105,13 @@ describe('test the user profile API', () => {
     test('test GET /api/user returns 200', () => {
         return request(app)
             .get('/api/user')
-            .expect(200);
+            .expect(200); 
     });
 
     test('test that GET /api/user returns the JSON', () => {
         return request(app)
             .get('/api/user')
-            .expect('Content-Type', /json/); 
+            .expect('Content-Type', /json/);  
     });
 
     test('test POST /api/user works with valid data', () => {
@@ -125,7 +125,7 @@ describe('test the user profile API', () => {
         return request(app)
             .post('/api/user')
             .send(params)
-            .expect(200) 
+            .expect(200)  
             .expect((response) => {
                 expect(response.body.message).toBe('User profile updated successfully');
                 expect(response.body.user).toHaveProperty('name', params.name);
@@ -142,7 +142,7 @@ describe('test the user profile API', () => {
         return request(app)
             .post('/api/user')
             .send(params)
-            .expect(400) 
+            .expect(400)  
             .expect((response) => {
                 expect(response.body.error).toBe('Name is required');
             });

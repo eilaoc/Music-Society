@@ -34,5 +34,14 @@
     "description": "Dance the night away!",
     "imageURL": "assets/images/event3.jpg",
     "id": "8ce70b30-e22a-42a5-ae8e-b294a85574b8"
+  },
+  {
+    "id": "8559da50-d20b-4f7b-ae5e-424c68125405",
+    "title": "Concert Night",
+    "location": "Newcastle",
+    "time": "2025-01-30T00:06:26.355Z",
+    "capacity": 500,
+    "description": "A great concert event!",
+    "imageURL": "assets/images/event2.jpg"
   }
 ]

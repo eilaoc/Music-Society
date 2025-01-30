@@ -1,1 +1,7 @@
-[]
+{
+  "name": "Eila OC",
+  "instruments": "Violin",
+  "about": "Classical Violinist",
+  "location": "Edinburgh",
+  "image": "assets/images/profile1.jpg"
+}
