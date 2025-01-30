@@ -43,5 +43,14 @@
     "capacity": 500,
     "description": "A great concert event!",
     "imageURL": "assets/images/event2.jpg"
+  },
+  {
+    "id": "c2f0f453-8a5c-4886-9785-851704c673ca",
+    "title": "Local Concert 2",
+    "location": "Durham",
+    "time": "2025-02-27T02:31",
+    "capacity": "7",
+    "description": "hj",
+    "imageURL": "assets/images/event4.jpg"
   }
 ]
