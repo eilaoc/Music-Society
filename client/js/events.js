@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     const addEventButton = document.getElementById('addEventBtn');
     const eventForm = document.getElementById('eventForm');
-    const eventsSection = document.getElementById('events'); // Select the entire events section
+    const eventsSection = document.getElementById('events'); 
     const upcomingEventsContainer = document.getElementById('upcomingEventsContainer');
     const previousEventsContainer = document.getElementById('previousEventsContainer');
 
-    // Show events section and form
+    // show events section and form
     addEventButton.addEventListener('click', () => {
-        eventsSection.style.display = 'block';  // Show the entire events section
-        document.getElementById('addEventForm').style.display = 'block'; // Ensure the form itself is displayed
+        eventsSection.style.display = 'block';  
+        document.getElementById('addEventForm').style.display = 'block'; 
     });
 
-    // Add new event
+    // add new event
     eventForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Get data from the form
+        // get data from the form
         const newEvent = {
             title: document.getElementById('eventTitle').value,
             location: document.getElementById('eventLocation').value,
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Add event function
+    // add event function
     async function addEvent(newEvent) {
         const response = await fetch('/api/events', {
             method: 'POST',
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Load events
+    // load events
     async function loadEvents() {
         try {
             const response = await fetch('/api/events');
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Create event card
+    // create event card
     function createEventCard(event) {
         const eventCard = document.createElement('div');
         eventCard.classList.add('event-card', 'd-flex', 'align-items-center', 'mb-4');

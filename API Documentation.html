@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--creation of html structure for this API Documentation was assisted by AI (chatGPT)-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #343a40;
+        }
+
+        .endpoint {
+            background-color: #ffffff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .code-block {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .example {
+            background-color: #f1f1f1;
+            border-left: 4px solid #007bff;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .parameter {
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>API Documentation</h1>
+
+    <h2>Getting Started</h2>
+    <p>To get started with the API, follow these steps:</p>
+    <ol>
+        <li>Clone the repository to your computer.</li>
+        <li>Go to the project directory in your terminal.</li>
+        <li>Run the following command to install the dependencies:</li>
+        <div class="code-block">
+            npm install
+        </div>
+        <li>Start the application using the following command when it has finished installing:</li>
+        <div class="code-block">
+            npm start
+        </div>
+        <li>Once the server is running, open your browser and go to <a href="http://localhost:3000/" target="_blank">http://localhost:3000/</a> to access the website.</li>
+    </ol>
+
+    <h2>1. Events API</h2>
+
+    <div class="endpoint">
+        <h3>GET /api/events</h3>
+        <p>Get a list of event IDs and titles.</p>
+        <p><strong>Query Parameters:</strong></p>
+        <ul>
+            <li><strong>title</strong> (optional) - Filter events by title.</li>
+            <li><strong>location</strong> (optional) - Filter events by location.</li>
+        </ul>
+        <div class="code-block">
+            GET /api/events?title=Concert&location=Venue
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            [<br>
+            {<br>
+            &nbsp;&nbsp;"id": "1",<br>
+            &nbsp;&nbsp;"title": "Concert A"<br>
+            },<br>
+            {<br>
+            &nbsp;&nbsp;"id": "2",<br>
+            &nbsp;&nbsp;"title": "Concert B"<br>
+            }<br>
+            ]
+        </div>
+        <h4>Error Response:</h4>
+        <div class="example error">
+            404 Not Found - If no events match the filters.
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3>GET /api/events/:id</h3>
+        <p>Get event details by event ID.</p>
+        <div class="code-block">
+            GET /api/events/{id}
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"id": "1",<br>
+            &nbsp;&nbsp;"title": "Concert A",<br>
+            &nbsp;&nbsp;"location": "Venue A",<br>
+            &nbsp;&nbsp;"time": "2025-01-30T20:00:00Z",<br>
+            &nbsp;&nbsp;"capacity": 500,<br>
+            &nbsp;&nbsp;"description": "A fun concert",<br>
+            &nbsp;&nbsp;"imageURL": "https://example.com/concert.jpg"<br>
+            }
+        </div>
+        <h4>Error Response:</h4>
+        <div class="example error">
+            404 Not Found - If the event with the given ID does not exist.
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3>POST /api/events</h3>
+        <p>Add a new event.</p>
+        <h4>Request Body:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"title": "Concert C",<br>
+            &nbsp;&nbsp;"location": "Venue B",<br>
+            &nbsp;&nbsp;"time": "2025-02-10T18:00:00Z",<br>
+            &nbsp;&nbsp;"capacity": 300,<br>
+            &nbsp;&nbsp;"description": "A new concert",<br>
+            &nbsp;&nbsp;"imageURL": "https://example.com/concert-c.jpg"<br>
+            }
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"message": "Event created successfully",<br>
+            &nbsp;&nbsp;"event": {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"id": "3",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"title": "Concert C",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"location": "Venue B",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"time": "2025-02-10T18:00:00Z",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"capacity": 300,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"description": "A new concert",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"imageURL": "https://example.com/concert-c.jpg"<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+        <h4>Error Response:</h4>
+        <div class="example error">
+            400 Bad Request - If the required fields (title, location, time) are not provided.
+        </div>
+    </div>
+
+    <h2>2. Musicians API</h2>
+
+    <div class="endpoint">
+        <h3>GET /api/musicians</h3>
+        <p>Get a list of musicians' IDs and names.</p>
+        <p><strong>Query Parameters:</strong></p>
+        <ul>
+            <li><strong>name</strong> (optional) - Filter musicians by name.</li>
+            <li><strong>location</strong> (optional) - Filter musicians by location.</li>
+        </ul>
+        <div class="code-block">
+            GET /api/musicians?name=Musician&location=New%20York
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            [<br>
+            {<br>
+            &nbsp;&nbsp;"id": "1",<br>
+            &nbsp;&nbsp;"name": "Musician A"<br>
+            },<br>
+            {<br>
+            &nbsp;&nbsp;"id": "2",<br>
+            &nbsp;&nbsp;"name": "Musician B"<br>
+            }<br>
+            ]
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3>GET /api/musicians/:id</h3>
+        <p>Get musician details by musician ID.</p>
+        <div class="code-block">
+            GET /api/musicians/{id}
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"id": "1",<br>
+            &nbsp;&nbsp;"name": "Musician A",<br>
+            &nbsp;&nbsp;"instruments": ["Guitar", "Piano"],<br>
+            &nbsp;&nbsp;"about": "A talented musician",<br>
+            &nbsp;&nbsp;"location": "Newcastle",<br>
+            &nbsp;&nbsp;"image": "https://example.com/musician-a.jpg"<br>
+            }
+        </div>
+        <h4>Error Response:</h4>
+        <div class="example error">
+            404 Not Found - If the musician with the given ID does not exist.
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3>POST /api/musicians</h3>
+        <p>Add a new musician.</p>
+        <h4>Request Body:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"name": "Musician C",<br>
+            &nbsp;&nbsp;"instruments": ["Drums"],<br>
+            &nbsp;&nbsp;"about": "A drummer",<br>
+            &nbsp;&nbsp;"location": "Durham",<br>
+            &nbsp;&nbsp;"image": "https://example.com/musician-c.jpg"<br>
+            }
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"message": "Musician added successfully",<br>
+            &nbsp;&nbsp;"musician": {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"id": "3",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"name": "Musician C",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"instruments": ["Drums"],<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"about": "A drummer",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"location": "Durham",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"image": "https://example.com/musician-c.jpg"<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+        <h4>Error Response:</h4>
+        <div class="example error">
+            400 Bad Request - If the required fields (name, instruments) are not provided.
+        </div>
+    </div>
+
+    <h2>3. User Profile API</h2>
+
+    <div class="endpoint">
+        <h3>GET /api/user</h3>
+        <p>Get the user profile details.</p>
+        <div class="code-block">
+            GET /api/user
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"name": "User A",<br>
+            &nbsp;&nbsp;"instruments": ["Guitar"],<br>
+            &nbsp;&nbsp;"about": "Music enthusiast",<br>
+            &nbsp;&nbsp;"location": "Chicago",<br>
+            &nbsp;&nbsp;"image": "https://example.com/user-a.jpg"<br>
+            }
+        </div>
+    </div>
+
+    <div class="endpoint">
+        <h3>POST /api/user</h3>
+        <p>Update the user profile.</p>
+        <h4>Request Body:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"name": "User B",<br>
+            &nbsp;&nbsp;"instruments": ["Piano"],<br>
+            &nbsp;&nbsp;"about": "Music lover",<br>
+            &nbsp;&nbsp;"location": "Durham",<br>
+            &nbsp;&nbsp;"image": "https://example.com/user-b.jpg"<br>
+            }
+        </div>
+        <h4>Example Response:</h4>
+        <div class="example">
+            {<br>
+            &nbsp;&nbsp;"message": "User profile updated successfully",<br>
+            &nbsp;&nbsp;"user": {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"name": "User B",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"instruments": ["Piano"],<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"about": "Music lover",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"location": "Durham",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"image": "https://example.com/user-b.jpg"<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+        <h4>Error Response:</h4>
+        <div class="example error">
+            400 Bad Request - If the required field (name) is not provided.
+        </div>
+    </div>
+
+</body>
+
+</html>

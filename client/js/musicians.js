@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     musiciansContainer.classList.add('row', 'justify-content-center', 'mt-4');
     musiciansForm.style.display = 'none';
 
-    // Fetch all events once and store them in a lookup object
+    // get all events
     let eventLookup = {};
 
     async function loadEvents() {
@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Load musicians
+    // load musicians
     async function loadMusicians() {
-        await loadEvents(); // Ensure events are loaded before musicians
+        await loadEvents(); 
 
         try {
             const response = await fetch('/api/musicians');
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
    
-            // Get user profile
+            // get user profile
             const profileResponse = await fetch('/api/user');
             const profile = await profileResponse.json();
    
@@ -61,12 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Create profile element
+    // create profile element
     async function createProfileElement(profile) {
         const profileCard = document.createElement('div');
         profileCard.classList.add('col-md-3', 'card', 'profile-card');
 
-        // Convert liked event IDs to event titles
+
         const likedEventsTitles = (profile.likedEvents || []).map(id => eventLookup[id] || "Unknown Event").join(", ") || "None";
 
         profileCard.innerHTML = `
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-            // Show profile form
+            // show profile form
         function showProfileForm(profile = null) {
             musiciansForm.style.display = 'block';
             createProfileButton.style.display = 'none'; 
@@ -96,13 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('musicianImage').value = profile?.image || '';
             }
 
-            // Remove previous event listener to prevent duplicates
             const form = document.getElementById('musicianForm');
             form.removeEventListener('submit', handleFormSubmit);
             form.addEventListener('submit', handleFormSubmit);
         }
 
-        // Handle form submission
+        // handle form submission
         async function handleFormSubmit(e) {
             e.preventDefault();
 
@@ -117,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 await saveProfile(updatedProfile);
 
-                // Update userProfile with the latest data
+                // update user profile
                 userProfile = updatedProfile;
 
                 createProfileButton.textContent = 'Edit Profile';
@@ -132,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-    // Save profile
+    // save profile
     async function saveProfile(profile) {
         const response = await fetch('/api/user', { 
             method: 'POST',
@@ -147,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Show form
+    // show form
     createProfileButton.addEventListener('click', () => {
         showProfileForm(userProfile);
     });

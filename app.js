@@ -15,13 +15,6 @@ console.log("Loaded User Profile:", userProfile);
 app.use(express.json());
 app.use(express.static('client'));
 
-// Assign IDs to events and musicians if missing
-events.forEach(event => {
-    if (!event.id) {
-        event.id = uuidv4();
-    }
-});
-fs.writeFileSync('./data/events.json', JSON.stringify(events, null, 2));
 
 musicians.forEach(musician => {
     if (!musician.id) {
@@ -33,13 +26,13 @@ musicians.forEach(musician => {
 });
 fs.writeFileSync('./data/musicians.json', JSON.stringify(musicians, null, 2));
 
-// Get a list of event IDs and titles
+// get a list of event IDs and titles
 app.get("/api/events", function(req, resp) {
     let eventList = events.map(event => ({ id: event.id, title: event.title }));
     resp.send(eventList);
 });
 
-// Get event details by ID
+// get event details by ID
 app.get("/api/events/:id", function(req, resp) {
     let event = events.find(e => e.id === req.params.id);
     if (event) {
@@ -49,7 +42,7 @@ app.get("/api/events/:id", function(req, resp) {
     }
 });
 
-// Add a new event
+// add a new event
 app.post("/api/events", function(req, resp) {
     let { title, location, time, capacity, description, imageURL } = req.body;
     if (!title || !location || !time) {
@@ -61,13 +54,13 @@ app.post("/api/events", function(req, resp) {
     resp.status(200).send({ message: "Event created successfully", event: newEvent });
 });
 
-// Get a list of musicians IDs and names
+// get a list of musicians IDs and names
 app.get("/api/musicians", function(req, resp) {
     let musicianList = musicians.map(m => ({ id: m.id, name: m.name }));
     resp.send(musicianList);
 });
 
-// Get musician details by ID
+// get musician details by ID
 app.get("/api/musicians/:id", function(req, resp) {
     let musician = musicians.find(m => m.id === req.params.id);
     if (musician) {
@@ -77,7 +70,7 @@ app.get("/api/musicians/:id", function(req, resp) {
     }
 });
 
-// Add a new musician
+// add a new musician
 app.post("/api/musicians", function(req, resp) {
     let { name, instruments, about, location, image } = req.body;
     if (!name || !instruments) {
@@ -92,12 +85,12 @@ app.post("/api/musicians", function(req, resp) {
 
 
 
-// Get user profile
+// get user profile
 app.get("/api/user", function(req, resp) {
     resp.send(userProfile);
 });
 
-// Update user profile
+// update user profile
 app.post("/api/user", function(req, resp) {
     let { name, instruments, about, location, image } = req.body;
     if (!name) {

@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const randomEventContainer = document.getElementById("randomEventContainer");
     const recentMembersContainer = document.getElementById('recentMembersContainer'); 
 
-    // Fetch all events and store them in a lookup object
+    // get all events
     let eventLookup = {};
 
     async function loadEvents() {
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // Load random event
+    // load random event
     async function loadRandomEvent() {
         try {
             const response = await fetch('/api/events');
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (eventList.length > 0) {
                 const randomEventInfo = eventList[Math.floor(Math.random() * eventList.length)];
 
-                // Fetch full event details by ID
+             
                 const eventResponse = await fetch(`/api/events/${randomEventInfo.id}`);
                 const randomEvent = await eventResponse.json();
 
@@ -49,9 +49,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // Load recent musicians
+    // load recent musicians
     async function loadRecentMembers() {
-        await loadEvents(); // Ensure events are loaded before musicians
+        await loadEvents(); 
 
         try {
             const response = await fetch('/api/musicians');
@@ -65,11 +65,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 profilesRow.classList.add('row', 'justify-content-center', 'mt-3');
 
                 for (const profileInfo of randomProfiles) {
-                    // Fetch full musician details by ID
+
                     const profileResponse = await fetch(`/api/musicians/${profileInfo.id}`);
                     const profile = await profileResponse.json();
 
-                    // Convert liked event IDs to event titles
+
                     const likedEventsTitles = (profile.likedEvents || []).map(id => eventLookup[id] || "Unknown Event").join(", ") || "None";
 
                     const profileCard = document.createElement('div');
