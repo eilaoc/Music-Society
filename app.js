@@ -89,22 +89,8 @@ app.post("/api/musicians", function(req, resp) {
     resp.status(200).send({ message: "Musician added successfully", musician: newMusician });
 });
 
-// Allow a musician to like an event
-app.post("/api/musicians/:id/like", function(req, resp) {
-    let musician = musicians.find(m => m.id === req.params.id);
-    let { eventId } = req.body;
-    if (!musician) {
-        return resp.status(404).send({ error: "Musician not found" });
-    }
-    if (!events.some(event => event.id === eventId)) {
-        return resp.status(404).send({ error: "Event not found" });
-    }
-    if (!musician.likedEvents.includes(eventId)) {
-        musician.likedEvents.push(eventId);
-        fs.writeFileSync('./data/musicians.json', JSON.stringify(musicians, null, 2));
-    }
-    resp.status(200).send({ message: "Event liked successfully", likedEvents: musician.likedEvents });
-});
+
+
 
 // Get user profile
 app.get("/api/user", function(req, resp) {

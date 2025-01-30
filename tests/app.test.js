@@ -1,21 +1,36 @@
 const request = require('supertest');
 const app = require('../app');
+const { v4: uuidv4 } = require('uuid');
 
-describe('test the events API', () => {
+describe('Events API', () => {
 
-    test('test GET /api/events returns 200', () => {
-        return request(app)
-            .get('/api/events')
-            .expect(200); 
+    test('GET /api/events returns 200', async () => {
+        await request(app).get('/api/events').expect(200);
     });
 
-    test('test GET /api/events returns the JSON', () => {
-        return request(app)
-            .get('/api/events')
-            .expect('Content-Type', /json/); 
+    test('GET /api/events returns JSON', async () => {
+        await request(app).get('/api/events').expect('Content-Type', /json/);
     });
 
-    test('test POST /api/events works with valid data', () => {
+    test('GET /api/events/:id returns event details', async () => {
+        const newEvent = {
+            id: uuidv4(),
+            title: 'Test Event',
+            location: 'Test Location',
+            time: new Date().toISOString(),
+            capacity: 100,
+            description: 'Test Description',
+            imageURL: 'test.jpg'
+        };
+
+        const postResponse = await request(app).post('/api/events').send(newEvent);
+        const eventId = postResponse.body.event.id;
+
+        const response = await request(app).get(`/api/events/${eventId}`).expect(200);
+        expect(response.body.id).toBe(eventId);
+    });
+
+    test('POST /api/events creates an event', async () => {
         const params = {
             title: 'Concert Night',
             location: 'Newcastle',
@@ -24,48 +39,32 @@ describe('test the events API', () => {
             description: 'A great concert event!',
             imageURL: 'assets/images/event2.jpg'
         };
-        return request(app)
-            .post('/api/events')
-            .send(params)
-            .expect(200)  
-            .expect((response) => {
-                expect(response.body.message).toBe('Event created successfully');
-                expect(response.body.event).toHaveProperty('id');
-                expect(response.body.event.title).toBe(params.title);
-            });
+
+        const response = await request(app).post('/api/events').send(params).expect(200);
+        expect(response.body.message).toBe('Event created successfully');
+        expect(response.body.event).toHaveProperty('id');
+        expect(response.body.event.title).toBe(params.title);
     });
 
-    test('test POST /api/events returns 400 for missing required fields', () => {
-        const params = {
-            location: 'Newcastle',
-            time: new Date().toISOString(),
-        };
-        return request(app)
-            .post('/api/events')
-            .send(params)
-            .expect(400)  
-            .expect((response) => {
-                expect(response.body.error).toBe('Title, location, and time are required');
-            });
-    });
+    test('POST /api/events returns 400 for missing fields', async () => {
+        const params = { location: 'Newcastle', time: new Date().toISOString() };
 
+        const response = await request(app).post('/api/events').send(params).expect(400);
+        expect(response.body.error).toBe('Title, location, and time are required');
+    });
 });
 
-describe('test the musicians API', () => {
+describe('Musicians API', () => {
 
-    test('test GET /api/musicians returns 200', () => {
-        return request(app)
-            .get('/api/musicians')
-            .expect(200); 
+    test('GET /api/musicians returns 200', async () => {
+        await request(app).get('/api/musicians').expect(200);
     });
 
-    test('test GET /api/musicians returns correct JSON', () => {
-        return request(app)
-            .get('/api/musicians')
-            .expect('Content-Type', /json/); 
+    test('GET /api/musicians returns JSON', async () => {
+        await request(app).get('/api/musicians').expect('Content-Type', /json/);
     });
 
-    test('test POST /api/musicians works with valid data', () => {
+    test('POST /api/musicians creates a musician', async () => {
         const params = {
             name: 'Alex Smith',
             instruments: 'Bass Guitar',
@@ -73,48 +72,51 @@ describe('test the musicians API', () => {
             location: 'Newcastle',
             image: 'assets/images/profile1.jpg'
         };
-        return request(app)
-            .post('/api/musicians')
-            .send(params)
-            .expect(200)  
-            .expect((response) => {
-                expect(response.body.message).toBe('Musician added successfully');
-                expect(response.body.musician).toHaveProperty('id');
-                expect(response.body.musician.name).toBe(params.name);
-            });
+
+        const response = await request(app).post('/api/musicians').send(params).expect(200);
+        expect(response.body.message).toBe('Musician added successfully');
+        expect(response.body.musician).toHaveProperty('id');
+        expect(response.body.musician.name).toBe(params.name);
     });
 
-    test('test POST /api/musicians returns 400 for missing required fields', () => {
-        const params = {
-            instruments: 'Bass Guitar',
-            location: 'Newcastle',
+    test('POST /api/musicians returns 400 for missing fields', async () => {
+        const params = { instruments: 'Bass Guitar', location: 'Newcastle' };
+
+        const response = await request(app).post('/api/musicians').send(params).expect(400);
+        expect(response.body.error).toBe('Name and instruments are required');
+    });
+
+    test('GET /api/musicians/:id returns musician details', async () => {
+        const newMusician = {
+            id: uuidv4(),
+            name: 'Test Musician',
+            instruments: 'Guitar',
+            about: 'Test About',
+            location: 'Test Location',
+            image: 'test.jpg'
         };
-        return request(app)
-            .post('/api/musicians')
-            .send(params)
-            .expect(400)  
-            .expect((response) => {
-                expect(response.body.error).toBe('Name and instruments are required');
-            });
+
+        const postResponse = await request(app).post('/api/musicians').send(newMusician);
+        const musicianId = postResponse.body.musician.id;
+
+        const response = await request(app).get(`/api/musicians/${musicianId}`).expect(200);
+        expect(response.body.id).toBe(musicianId);
     });
 
+    
 });
 
-describe('test the user profile API', () => {
+describe('User Profile API', () => {
 
-    test('test GET /api/user returns 200', () => {
-        return request(app)
-            .get('/api/user')
-            .expect(200); 
+    test('GET /api/user returns 200', async () => {
+        await request(app).get('/api/user').expect(200);
     });
 
-    test('test that GET /api/user returns the JSON', () => {
-        return request(app)
-            .get('/api/user')
-            .expect('Content-Type', /json/);  
+    test('GET /api/user returns JSON', async () => {
+        await request(app).get('/api/user').expect('Content-Type', /json/);
     });
 
-    test('test POST /api/user works with valid data', () => {
+    test('POST /api/user updates user profile', async () => {
         const params = {
             name: 'Eila OC',
             instruments: 'Violin',
@@ -122,30 +124,16 @@ describe('test the user profile API', () => {
             location: 'Edinburgh',
             image: 'assets/images/profile1.jpg'
         };
-        return request(app)
-            .post('/api/user')
-            .send(params)
-            .expect(200)  
-            .expect((response) => {
-                expect(response.body.message).toBe('User profile updated successfully');
-                expect(response.body.user).toHaveProperty('name', params.name);
-                expect(response.body.user).toHaveProperty('instruments', params.instruments);
-            });
+
+        const response = await request(app).post('/api/user').send(params).expect(200);
+        expect(response.body.message).toBe('User profile updated successfully');
+        expect(response.body.user).toMatchObject(params);
     });
 
-    test('test POST /api/user returns 400 for missing required fields', () => {
-        const params = {
-            instruments: 'Violin',
-            about: 'Classical Violinist',
-            location: 'Edinburgh',
-        };
-        return request(app)
-            .post('/api/user')
-            .send(params)
-            .expect(400)  
-            .expect((response) => {
-                expect(response.body.error).toBe('Name is required');
-            });
-    });
+    test('POST /api/user returns 400 for missing name', async () => {
+        const params = { instruments: 'Violin', about: 'Classical Violinist', location: 'Edinburgh' };
 
+        const response = await request(app).post('/api/user').send(params).expect(400);
+        expect(response.body.error).toBe('Name is required');
+    });
 });
