@@ -1,41 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const createProfileButton = document.querySelector('#musicians .btn');
-    const musiciansContainer = document.createElement('div');
+    const createProfileButton = document.querySelector('#createProfileBtn');
+    const musiciansContainer = document.querySelector('#musiciansContainer');
     const musiciansForm = document.querySelector('#musicianForm'); 
+    const myProfileContainer = document.querySelector('#myProfileContainer')
+
     let userProfile = null;
 
     musiciansContainer.classList.add('row', 'justify-content-center', 'mt-4');
     musiciansForm.style.display = 'none';
 
-    createProfileButton.parentNode.insertAdjacentElement('afterend', musiciansContainer);
 
     // load musicians
     async function loadMusicians() {
         try {
             const response = await fetch('/api/musicians');
             const musicians = await response.json();
+             
+            
             musiciansContainer.innerHTML = ''; 
-
-            musicians.forEach(musician => {
-                if (musician.isUserProfile) {
-                    userProfile = musician;
+   
+            for (const musician of musicians) {
+                const profileResponse = await fetch(`/api/musicians/${musician.id}`);
+                const fullProfile = await profileResponse.json();
+                
+                if (fullProfile.isUserProfile) {
+                    userProfile = fullProfile;
                 } else {
-                    const profileElement = createProfileElement(musician);
+                    const profileElement = createProfileElement(fullProfile);
                     musiciansContainer.appendChild(profileElement);
                 }
-            });
-
+            }
+   
             // get user profile
             const profileResponse = await fetch('/api/user');
             const profile = await profileResponse.json();
-
+   
             if (profile && Object.keys(profile).length > 0) {
                 userProfile = profile;
-                const myProfileDiv = document.createElement('div');
-                myProfileDiv.id = 'myProfile';
-                myProfileDiv.classList.add('row', 'justify-content-center');
-                myProfileDiv.appendChild(createProfileElement(userProfile));
-                createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
+                myProfileContainer.appendChild(createProfileElement(userProfile));
                 createProfileButton.textContent = 'Edit Profile';
             } else {
                 createProfileButton.textContent = 'Create Profile';
@@ -65,7 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function showProfileForm(profile = null) {
         musiciansForm.style.display = 'block';
         createProfileButton.style.display = 'none'; 
-        createProfileButton.parentNode.insertAdjacentElement('beforeend', musiciansForm);
+
+        if (profile) {
+            document.getElementById('musicianName').value = profile?.name || '';
+            document.getElementById('musicianInstruments').value = profile?.instruments || '';
+            document.getElementById('musicianAbout').value = profile?.about || '';
+            document.getElementById('musicianLocation').value = profile?.location || '';
+            document.getElementById('musicianImage').value = profile?.image || '';
+        }
 
         document.getElementById('musicianForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -84,17 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 createProfileButton.textContent = 'Edit Profile';
                 createProfileButton.style.display = 'block';
 
-                const userProfileSection = document.querySelector('#myProfile');
-                if (userProfileSection) {
-                    userProfileSection.innerHTML = '';
-                    userProfileSection.appendChild(createProfileElement(updatedProfile));
-                } else {
-                    const myProfileDiv = document.createElement('div');
-                    myProfileDiv.id = 'myProfile';
-                    myProfileDiv.classList.add('row', 'justify-content-center', 'mt-4');
-                    myProfileDiv.appendChild(createProfileElement(updatedProfile));
-                    createProfileButton.parentNode.insertAdjacentElement('beforebegin', myProfileDiv);
-                }
+                myProfileContainer.innerHTML = '';
+                myProfileContainer.appendChild(createProfileElement(updatedProfile));
 
                 musiciansForm.style.display = 'none';
             } catch (error) {
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // save profile
     async function saveProfile(profile) {
-        const response = await fetch('/api/user/add', {
+        const response = await fetch('/api/user', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

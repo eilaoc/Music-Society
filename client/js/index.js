@@ -6,10 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadRandomEvent() {
         try {
             const response = await fetch('/api/events');
-            const events = await response.json();
+            const eventList = await response.json();
 
-            if (events.length > 0) {
-                const randomEvent = events[Math.floor(Math.random() * events.length)];
+            if (eventList.length > 0) {
+                const randomEventInfo = eventList[Math.floor(Math.random() * eventList.length)];
+
+                // Fetch full event details by ID
+                const eventResponse = await fetch(`/api/events/${randomEventInfo.id}`);
+                const randomEvent = await eventResponse.json();
 
                 randomEventContainer.innerHTML = `
                     <div class="event-card d-flex align-items-center">
@@ -36,17 +40,21 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadRecentMembers() {
         try {
             const response = await fetch('/api/musicians');
-            const musicians = await response.json();
+            const musicianList = await response.json();
 
-            if (musicians.length > 0) {
-                const randomProfiles = musicians.sort(() => 0.5 - Math.random()).slice(0, 2);
+            if (musicianList.length > 0) {
+                const randomProfiles = musicianList.sort(() => 0.5 - Math.random()).slice(0, 2);
 
                 recentMembersContainer.innerHTML = ''; 
 
                 const profilesRow = document.createElement('div');
                 profilesRow.classList.add('row', 'justify-content-center', 'mt-3');
 
-                randomProfiles.forEach(profile => {
+                for (const profileInfo of randomProfiles) {
+                    // Fetch full musician details by ID
+                    const profileResponse = await fetch(`/api/musicians/${profileInfo.id}`);
+                    const profile = await profileResponse.json();
+
                     const profileCard = document.createElement('div');
                     profileCard.classList.add('col-md-4', 'col-lg-3', 'col-lg-3', 'card', 'profile-card');
 
@@ -60,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     `;
                     profilesRow.appendChild(profileCard);
-                });
+                }
 
                 recentMembersContainer.appendChild(profilesRow);
             } else {
@@ -71,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
             recentMembersContainer.innerHTML = `<p>Failed to load recent members.</p>`;
         }
     }
-
 
     loadRandomEvent();
     loadRecentMembers();

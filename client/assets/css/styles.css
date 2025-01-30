@@ -1,10 +1,4 @@
 
-#myProfileContainer {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
 div.padding1 {
   padding: 10px;
 }
@@ -51,6 +45,11 @@ div.formpadding {
   margin-right: 20px;
 }
 
+#myProfileContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
 
 .profile-card {
   background-color: #98deff;
@@ -85,4 +84,9 @@ footer {
 
 #eventForm button, #musicianForm button {
   width: 100%;
+}
+
+.center-button {
+  display: flex;
+  justify-content: center;
 }

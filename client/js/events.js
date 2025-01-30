@@ -1,19 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     const addEventButton = document.getElementById('addEventBtn');
     const eventForm = document.getElementById('eventForm');
+    const eventsSection = document.getElementById('events'); // Select the entire events section
     const upcomingEventsContainer = document.getElementById('upcomingEventsContainer');
     const previousEventsContainer = document.getElementById('previousEventsContainer');
 
-    // show form
+    // Show events section and form
     addEventButton.addEventListener('click', () => {
-        eventForm.style.display = 'block'; 
+        eventsSection.style.display = 'block';  // Show the entire events section
+        document.getElementById('addEventForm').style.display = 'block'; // Ensure the form itself is displayed
     });
 
-    // add new event
+    // Add new event
     eventForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // get data
+        // Get data from the form
         const newEvent = {
             title: document.getElementById('eventTitle').value,
             location: document.getElementById('eventLocation').value,
@@ -28,14 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
             loadEvents(); 
             eventForm.reset();
             eventForm.style.display = 'none'; 
+            document.getElementById('addEventForm').style.display = 'none';
         } catch (error) {
             console.error('Error adding event:', error);
         }
     });
 
-    // add event
+    // Add event function
     async function addEvent(newEvent) {
-        const response = await fetch('/api/event/add', {
+        const response = await fetch('/api/events', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newEvent)
@@ -46,21 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // load events
+    // Load events
     async function loadEvents() {
         try {
             const response = await fetch('/api/events');
-            const events = await response.json();
+            const eventList = await response.json();
 
             upcomingEventsContainer.innerHTML = '';
             previousEventsContainer.innerHTML = '';
 
-            if (events.length === 0) {
+            if (eventList.length === 0) {
                 upcomingEventsContainer.innerHTML = '<p>No events available.</p>';
                 previousEventsContainer.innerHTML = '<p>No events available.</p>';
             } else {
                 const currentDate = new Date();
-                events.forEach(event => {
+                for (const eventInfo of eventList) {
+                    const eventResponse = await fetch(`/api/events/${eventInfo.id}`);
+                    const event = await eventResponse.json();
+
                     const eventDate = new Date(event.time);
                     const eventCard = createEventCard(event);
 
@@ -69,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     } else {
                         previousEventsContainer.appendChild(eventCard);
                     }
-                });
+                }
             }
         } catch (error) {
             console.error('Error loading events:', error);
@@ -77,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // create event card
+    // Create event card
     function createEventCard(event) {
         const eventCard = document.createElement('div');
         eventCard.classList.add('event-card', 'd-flex', 'align-items-center', 'mb-4');

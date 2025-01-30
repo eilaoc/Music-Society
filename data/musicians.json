@@ -5,7 +5,7 @@
     "about": "Rock and blues are my go-to!",
     "location": "Durham",
     "image": "assets/images/profile1.jpg",
-    "isUserProfile": false
+    "id": "ec53e399-03ce-4801-9a41-6976474365e2"
   },
   {
     "name": "Izzy Barton",
@@ -13,7 +13,7 @@
     "about": "Love a bit of jazz",
     "location": "Newcastle",
     "image": "assets/images/profile2.jpg",
-    "isUserProfile": false
+    "id": "fd2ddbac-2219-4508-83bc-ede664bca430"
   },
   {
     "name": "Ashley Lyons",
@@ -21,7 +21,7 @@
     "about": "Looking for members for a quartet!",
     "location": "Manchester",
     "image": "assets/images/profile3.jpg",
-    "isUserProfile": false
+    "id": "894e5ac2-3a7d-4ace-aea3-2c83de767a7a"
   },
   {
     "name": "Dylan Rodney",
@@ -29,6 +29,6 @@
     "about": "Local at the Open Mic Night!",
     "location": "Durham",
     "image": "assets/images/profile4.jpg",
-    "isUserProfile": false
+    "id": "1343f99c-01cc-4a50-8ee9-740f5133297e"
   }
 ]

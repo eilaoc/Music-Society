@@ -5,7 +5,8 @@
     "time": "2025-01-10T19:00:00",
     "capacity": 100,
     "description": "A fun evening of music!",
-    "imageURL": "assets/images/event1.jpg"
+    "imageURL": "assets/images/event1.jpg",
+    "id": "4a3f4b25-6faa-4f47-a1ef-d5059fccb59a"
   },
   {
     "title": "Local Concert",
@@ -13,7 +14,8 @@
     "time": "2025-02-09T18:00:00",
     "capacity": 150,
     "description": "Join us for a night of live music.",
-    "imageURL": "assets/images/event2.jpg"
+    "imageURL": "assets/images/event2.jpg",
+    "id": "bf747bad-ff6c-4bf2-b5da-0789782dd300"
   },
   {
     "title": "Open Mic Night 2",
@@ -21,7 +23,8 @@
     "time": "2025-02-10T19:00:00",
     "capacity": 100,
     "description": "Anyone welcome!",
-    "imageURL": "assets/images/event1.jpg"
+    "imageURL": "assets/images/event1.jpg",
+    "id": "92c9b3b7-b6ff-45c1-b7fe-8b17387bd8ea"
   },
   {
     "title": "Silent Disco",
@@ -29,6 +32,7 @@
     "time": "2025-03-10T18:00:00",
     "capacity": 250,
     "description": "Dance the night away!",
-    "imageURL": "assets/images/event3.jpg"
+    "imageURL": "assets/images/event3.jpg",
+    "id": "8ce70b30-e22a-42a5-ae8e-b294a85574b8"
   }
 ]
